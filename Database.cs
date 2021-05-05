@@ -9,19 +9,9 @@ using System.Text;
 
 namespace TowerDefenceEksamensProjekt
 {
-    public class Login : GameObject
+    public class Database
     {
-        private SpriteFont userfont;
-        public Texture2D loginTexture;
-        public static ContentManager content;
-        public Rectangle Rectangle;
-        public static SQLiteConnection connection = new SQLiteConnection("Data Source=Fisker.db; Version=3; New=True");
-
-        public Login(Rectangle newRectangle)
-        {
-            loginTexture = content.Load<Texture2D>("Tile1");
-            this.Rectangle = newRectangle;
-        }
+        public static SQLiteConnection connection = new SQLiteConnection("Data Source=TowerDefence.db; Version=3; New=True");
 
         public static void DatabaseSetup()
         {
@@ -79,13 +69,10 @@ namespace TowerDefenceEksamensProjekt
             connection.Close();
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(loginTexture, Rectangle, Color.Gray);
-        }
-
         public static bool Userlogin(string user, string pass)
         {
+            SQLiteConnection connection = new SQLiteConnection("Data Source=TowerDefence.db; Version=3; New=True");
+
             connection.Open();
             string querry = "Select * from User Where Username = '" + user + "' and Password = '" + pass + "'";
 

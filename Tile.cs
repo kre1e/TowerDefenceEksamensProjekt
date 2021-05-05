@@ -13,6 +13,7 @@ namespace TowerDefenceEksamensProjekt
 
         public Rectangle Rectangle;
         public static ContentManager content;
+        public bool containTower;
 
         public override void Draw(SpriteBatch spriteBatch)
         {

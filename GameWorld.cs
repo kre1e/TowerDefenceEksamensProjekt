@@ -17,9 +17,9 @@ namespace TowerDefenceEksamensProjekt
         private string passValue = string.Empty;
         private string userValue = string.Empty;
         public SpriteFont userfont;
-        public Login userlog;
-        public Login passlog;
-        public Login userlogin;
+        public Button userlog;
+        public Button passlog;
+        public Button userlogin;
         public Texture2D userbackground;
         public textfied currenttexfied;
         public bool hidelogin = true;
@@ -29,10 +29,11 @@ namespace TowerDefenceEksamensProjekt
         public Realm realm;
         private Keys keyValue;
         public HighScore[] highscorearray;
-        public int space = 1;
-        private string highscorerealm;
-        private string highscoreuser;
-        private string highscorescore;
+
+        private bool ShowScoreBoard = false;
+        private bool dropDownMenu = false;
+        private SpriteFont font;
+        private SpriteFont headLine;
 
         public enum textfied
         {
@@ -53,7 +54,7 @@ namespace TowerDefenceEksamensProjekt
             // TODO: Add your initialization logic here
             map = new Map();
             realm = new Realm();
-            Login.DatabaseSetup();
+            Database.DatabaseSetup();
 
             base.Initialize();
         }
@@ -64,19 +65,18 @@ namespace TowerDefenceEksamensProjekt
             // TODO: use this.Content to load your game content here
             userfont = Content.Load<SpriteFont>("File");
             Tile.content = Content;
-            Login.content = Content;
+            Button.content = Content;
             realm.Map3(map);
             userbackground = Content.Load<Texture2D>("Tile1");
-            userlog = new Login(new Rectangle(650, 50, 100, 30));
-            passlog = new Login(new Rectangle(650, 100, 100, 30));
-            userlogin = new Login(new Rectangle(650, 150, 100, 30));
-            highscorearray = Login.Loadhighscore();
+            userlog = new Button(new Rectangle(350, 125, 100, 30));
+            passlog = new Button(new Rectangle(350, 175, 100, 30));
+            userlogin = new Button(new Rectangle(350, 225, 100, 30));
+            highscorearray = Database.Loadhighscore();
         }
 
-        public void Fishing()
+        public void Build()
         {
-            System.Threading.Thread.Sleep(5000);
-            score += _random.Next(0, 3);
+            score += 1;
         }
 
         private bool KeypressTest(Keys theKey)
@@ -110,7 +110,10 @@ namespace TowerDefenceEksamensProjekt
                     userValue += keyValue.ToString();
                     if (previousKeyState.IsKeyDown(Keys.Back))
                     {
-                        userValue = userValue.Remove(userValue.Length - 5, 5);
+                        if (userValue.Length == 4)
+                            userValue = userValue.Remove(userValue.Length - 4, 4);
+                        else
+                            userValue = userValue.Remove(userValue.Length - 5, 5);
                     }
                 }
                 else if (keys.Length > 0)
@@ -124,24 +127,42 @@ namespace TowerDefenceEksamensProjekt
                     passValue += keyValue.ToString();
                     if (previousKeyState.IsKeyDown(Keys.Back))
                     {
-                        passValue = passValue.Remove(passValue.Length - 5, 5);
+                        if (passValue.Length == 4)
+                            passValue = passValue.Remove(passValue.Length - 4, 4);
+                        else
+                            passValue = passValue.Remove(passValue.Length - 5, 5);
                     }
                 }
                 else if (keys.Length > 0)
                     keyValue = keys[0];
             }
-
-            foreach (Tile n in map.Tiles)
+            if (hidelogin == false)
             {
-                if (n.Rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
+                if (currentKeyState.IsKeyDown(Keys.Tab))
+                    ShowScoreBoard = true;
+                else
+                    ShowScoreBoard = false;
+
+                foreach (Tile n in map.Tiles)
                 {
-                    Fishing();
+                    if (n.Rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        if (n.containTower)
+                        {
+                            //Tower upgrade
+                        }
+                        else
+                        {
+                            Build();
+                            n.containTower = true;
+                        }
+                    }
                 }
             }
 
             if (userlogin.Rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
             {
-                if (Login.Userlogin(userValue, passValue))
+                if (Database.Userlogin(userValue, passValue))
                 {
                     hidelogin = false;
                 }
@@ -172,19 +193,20 @@ namespace TowerDefenceEksamensProjekt
             }
             else
             {
+                map.Draw(_spriteBatch);
                 _spriteBatch.DrawString(userfont, "Username: " + userValue, new Vector2(100, 1), Color.Black);
+                _spriteBatch.DrawString(userfont, "Score:  " + score, new Vector2(1, 1), Color.Black);
+                if (ShowScoreBoard == true)
+                {
+                    for (int i = 0; i < highscorearray.Length; i++)
+                    {
+                        _spriteBatch.DrawString(userfont, highscorearray[i].user.ToString(), new Vector2(0, 380 + 20 * i), Color.Black);
+                        _spriteBatch.DrawString(userfont, highscorearray[i].realm.ToString(), new Vector2(70, 380 + 20 * i), Color.Black);
+                        _spriteBatch.DrawString(userfont, highscorearray[i].highscore.ToString(), new Vector2(152, 380 + 20 * i), Color.Black);
+                    }
+                    _spriteBatch.DrawString(userfont, "User:        Realm:         Highscore", new Vector2(0, 360), Color.Black);
+                }
             }
-            map.Draw(_spriteBatch);
-            _spriteBatch.DrawString(userfont, "Score:  " + score, new Vector2(1, 1), Color.Black);
-
-            for (int i = 0; i < highscorearray.Length; i++)
-            {
-                _spriteBatch.DrawString(userfont, highscorearray[i].user.ToString(), new Vector2(0, 380 + 20 * i), Color.Black);
-                _spriteBatch.DrawString(userfont, highscorearray[i].realm.ToString(), new Vector2(70, 380 + 20 * i), Color.Black);
-                _spriteBatch.DrawString(userfont, highscorearray[i].highscore.ToString(), new Vector2(152, 380 + 20 * i), Color.Black);
-            }
-
-            _spriteBatch.DrawString(userfont, "User:        Realm:         Highscore", new Vector2(0, 360), Color.Black);
 
             _spriteBatch.End();
             base.Draw(gameTime);
