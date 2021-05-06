@@ -19,6 +19,11 @@ namespace TowerDefenceEksamensProjekt
         {
             spriteBatch.Draw(tile, Rectangle, color);
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class CoolTile : Tile

@@ -23,5 +23,10 @@ namespace TowerDefenceEksamensProjekt
         {
             spriteBatch.Draw(loginTexture, Rectangle, Color.Gray);
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

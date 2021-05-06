@@ -40,5 +40,10 @@ namespace TowerDefenceEksamensProjekt
                 tile.Draw(spriteBatch);
             }
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

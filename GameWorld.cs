@@ -20,6 +20,7 @@ namespace TowerDefenceEksamensProjekt
         public Button userlog;
         public Button passlog;
         public Button userlogin;
+        public Button buidlingLoadOut;
         public Texture2D userbackground;
         public textfied currenttexfied;
         public bool hidelogin = true;
@@ -34,12 +35,32 @@ namespace TowerDefenceEksamensProjekt
         private bool dropDownMenu = false;
         private SpriteFont font;
         private SpriteFont headLine;
+        public bool showBuildingLoadOut = false;
+        public List<Building> TowerList = new List<Building>();
+        public List<Button> buildingMenuButton = new List<Button>();
+        public List<Button> deleteButtons;
+
+        public static List<Enemy> listEnemy = new List<Enemy>();
+        public static List<Projectile> projectilelist = new List<Projectile>();
+        public List<Enemy> deleteEnemyList;
+        public buildplace currentbuilding;
+        public List<Building> BuildingList = new List<Building>();
+        public bool show = true;
+
+        public Item[] menuArray;
 
         public enum textfied
         {
             none,
             user,
-            pass
+            pass,
+            buildingMenuButton,
+        }
+
+        public enum buildplace
+        {
+            none,
+            placeing,
         }
 
         public GameWorld()
@@ -47,6 +68,8 @@ namespace TowerDefenceEksamensProjekt
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.PreferredBackBufferHeight = 1080;
         }
 
         protected override void Initialize()
@@ -66,17 +89,19 @@ namespace TowerDefenceEksamensProjekt
             userfont = Content.Load<SpriteFont>("File");
             Tile.content = Content;
             Button.content = Content;
+            Building.content = Content;
             realm.Map3(map);
             userbackground = Content.Load<Texture2D>("Tile1");
-            userlog = new Button(new Rectangle(350, 125, 100, 30));
-            passlog = new Button(new Rectangle(350, 175, 100, 30));
-            userlogin = new Button(new Rectangle(350, 225, 100, 30));
-            highscorearray = Database.Loadhighscore();
-        }
+            userlog = new Button(new Rectangle(880, 450, 100, 30));
+            passlog = new Button(new Rectangle(880, 500, 100, 30));
+            userlogin = new Button(new Rectangle(880, 550, 100, 30));
+            TowerList.Add(new Building());
+            TowerList.Add(new Building());
+            TowerList.Add(new Building());
+            TowerList.Add(new Building());
+            deleteButtons = new List<Button>();
 
-        public void Build()
-        {
-            score += 1;
+            highscorearray = Database.Loadhighscore();
         }
 
         private bool KeypressTest(Keys theKey)
@@ -85,6 +110,11 @@ namespace TowerDefenceEksamensProjekt
                 return true;
 
             return false;
+        }
+
+        public void Destroy(Button go)
+        {
+            deleteButtons.Add(go);
         }
 
         protected override void Update(GameTime gameTime)
@@ -101,7 +131,10 @@ namespace TowerDefenceEksamensProjekt
             else if (passlog.Rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
                 currenttexfied = textfied.pass;
             else if (mouseState.LeftButton == ButtonState.Pressed)
+            {
                 currenttexfied = textfied.none;
+                currentbuilding = buildplace.none;
+            }
 
             if (currenttexfied == textfied.user)
             {
@@ -136,6 +169,7 @@ namespace TowerDefenceEksamensProjekt
                 else if (keys.Length > 0)
                     keyValue = keys[0];
             }
+
             if (hidelogin == false)
             {
                 if (currentKeyState.IsKeyDown(Keys.Tab))
@@ -153,11 +187,39 @@ namespace TowerDefenceEksamensProjekt
                         }
                         else
                         {
-                            Build();
-                            n.containTower = true;
+                            deleteButtons.AddRange(buildingMenuButton);
+                            currentbuilding = buildplace.placeing;
+                            //Place building
+                            List<Item> itemList = new List<Item>();
+                            for (int i = 0; i < TowerList.Count; i++)
+                            {
+                                var itemMenu = new Item();
+                                itemMenu.button = new Button(new Rectangle(mouseState.X, mouseState.Y + i * 30, 100, 30)); ;
+                                itemMenu.building = TowerList[i];
+                                itemList.Add(itemMenu);
+                            }
+
+                            menuArray = itemList.ToArray();
                         }
                     }
+                    if (menuArray != null && menuArray.Length > 0)
+                        for (int i = 0; i < menuArray.Length; i++)
+                        {
+                            if (menuArray[i].button.Rectangle.Contains(mouseState.Position) && mouseState.RightButton == ButtonState.Pressed)
+                            {
+                                BuildingList.Add(menuArray[i].building);
+                                currentbuilding = buildplace.none;
+
+                                //n.containTower = true;
+                            }
+                        }
                 }
+
+                if (currentbuilding == buildplace.placeing)
+                    showBuildingLoadOut = true;
+
+                if (currentbuilding == buildplace.none)
+                    showBuildingLoadOut = false;
             }
 
             if (userlogin.Rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
@@ -166,6 +228,11 @@ namespace TowerDefenceEksamensProjekt
                 {
                     hidelogin = false;
                 }
+            }
+
+            foreach (var go in deleteButtons)
+            {
+                buildingMenuButton.Remove(go);
             }
 
             previousKeyState = currentKeyState;
@@ -196,6 +263,15 @@ namespace TowerDefenceEksamensProjekt
                 map.Draw(_spriteBatch);
                 _spriteBatch.DrawString(userfont, "Username: " + userValue, new Vector2(100, 1), Color.Black);
                 _spriteBatch.DrawString(userfont, "Score:  " + score, new Vector2(1, 1), Color.Black);
+
+                if (showBuildingLoadOut)
+                {
+                    for (int i = 0; i < menuArray.Length; i++)
+                    {
+                        menuArray[i].button.Draw(_spriteBatch);
+                    }
+                }
+
                 if (ShowScoreBoard == true)
                 {
                     for (int i = 0; i < highscorearray.Length; i++)

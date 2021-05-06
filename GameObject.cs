@@ -11,10 +11,12 @@ namespace TowerDefenceEksamensProjekt
     {
         protected Texture2D sprite;
         protected Vector2 velocity;
-        protected Vector2 position;
+        public Vector2 position;
         protected Color color = Color.White;
         protected SpriteBatch _spriteBatch;
 
         public abstract void Draw(SpriteBatch spriteBatch);
+
+        public abstract void Update(GameTime gameTime);
     }
 }
