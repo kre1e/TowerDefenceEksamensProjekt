@@ -9,6 +9,7 @@ namespace TowerDefenceEksamensProjekt
 {
     public class Building : GameObject
     {
+        public string name;
         private int cost = 20;
         private int range = 100;
         private int dmg = 5;
@@ -17,8 +18,9 @@ namespace TowerDefenceEksamensProjekt
         private Texture2D sprite;
         public static ContentManager content;
 
-        public Building()
+        public Building(string name)
         {
+            this.name = name;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
