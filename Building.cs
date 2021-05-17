@@ -4,10 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TowerDefenceEksamensProjekt.Levels;
 
 namespace TowerDefenceEksamensProjekt
 {
-    public class Building : GameObject
+    public class Building : GameObject, ICloneable
     {
         public string name;
         private int cost = 20;
@@ -25,7 +26,7 @@ namespace TowerDefenceEksamensProjekt
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            sprite = content.Load<Texture2D>("Tile");
+            sprite = content.Load<Texture2D>("Tile2");
             spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, 64, 64), color);
         }
 
@@ -46,7 +47,11 @@ namespace TowerDefenceEksamensProjekt
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+        }
+
+        public Object Clone()
+        {
+            return (Building)this.MemberwiseClone();
         }
     }
 }

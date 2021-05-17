@@ -9,7 +9,7 @@ namespace TowerDefenceEksamensProjekt.Levels
 {
     public class GameLevel : Level
     {
-        private Map currentmap;
+        public Map currentmap;
         public TowerMenu towerMenu;
         private bool ShowScoreBoard = false;
         public bool release = true;
@@ -54,16 +54,16 @@ namespace TowerDefenceEksamensProjekt.Levels
                 if (n.Rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && release)
                 {
                     release = false;
-                    if (n.containTower)
+                    if (n.ContainTower != null)
                     {
                         //Tower upgrade
                     }
                     else
                     {
-                        if (towerMenu.show)
+                        if (towerMenu.show && !towerMenu.rectangle.Contains(mouseState.Position))
                             towerMenu.show = false;
-                        else
-                            towerMenu.OpenMenu();
+                        else if (!towerMenu.rectangle.Contains(mouseState.Position))
+                            towerMenu.OpenMenu(n);
                     }
                 }
                 else if (mouseState.LeftButton == ButtonState.Released)
@@ -71,6 +71,8 @@ namespace TowerDefenceEksamensProjekt.Levels
                     release = true;
                 }
             }
+            towerMenu.Update(gameTime);
+            currentmap.Update(gameTime);
         }
     }
 }

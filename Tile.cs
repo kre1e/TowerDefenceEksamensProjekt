@@ -13,16 +13,33 @@ namespace TowerDefenceEksamensProjekt
 
         public Rectangle Rectangle;
         public static ContentManager content;
-        public bool containTower;
+        private GameObject containTower;
+
+        public GameObject ContainTower
+        {
+            get
+            {
+                return containTower;
+            }
+            set
+            {
+                containTower = value;
+                if (containTower != null)
+                    containTower.position = new Vector2(Rectangle.X, Rectangle.Y);
+            }
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(tile, Rectangle, color);
+            if (ContainTower != null)
+                ContainTower.Draw(spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            if (ContainTower != null)
+                ContainTower.Update(gameTime);
         }
     }
 

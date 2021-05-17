@@ -10,7 +10,7 @@ namespace TowerDefenceEksamensProjekt
     public class Map : GameObject
     {
         public int width, height;
-        public List<CoolTile> Tiles = new List<CoolTile>();
+        public CoolTile[,] Tiles;
 
         public Map()
         {
@@ -18,6 +18,7 @@ namespace TowerDefenceEksamensProjekt
 
         public void Gen(int[,] map, int size)
         {
+            Tiles = new CoolTile[map.GetLength(0), map.GetLength(1)];
             for (int i = 0; i < map.GetLength(1); i++)
             {
                 for (int j = 0; j < map.GetLength(0); j++)
@@ -25,7 +26,7 @@ namespace TowerDefenceEksamensProjekt
                     int number = map[j, i];
 
                     if (number > 0)
-                        Tiles.Add(new CoolTile(number, new Rectangle(i * size, j * size, size, size)));
+                        Tiles[j, i] = new CoolTile(number, new Rectangle(i * size, j * size, size, size));
 
                     width = (i + 1) * size;
                     height = (j + 1) * size;
@@ -43,7 +44,10 @@ namespace TowerDefenceEksamensProjekt
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            foreach (Tile tile in Tiles)
+            {
+                tile.Update(gameTime);
+            }
         }
     }
 }
