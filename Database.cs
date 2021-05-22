@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Text;
+using System.Diagnostics;
 
 namespace TowerDefenceEksamensProjekt
 {
@@ -47,11 +48,11 @@ namespace TowerDefenceEksamensProjekt
                     "Username VARCHAR(15)," +
                     "FOREIGN KEY (Username) REFERENCES User(Username))", connection);
                 command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Highscore (Score, realm, Username) VALUES ('100','So','PEPEGA')", connection);
+                command = new SQLiteCommand("INSERT INTO Highscore (Score, realm, Username) VALUES (100,'So','PEPEGA')", connection);
                 command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Highscore (Score, realm, Username) VALUES ('80','So','KREIE')", connection);
+                command = new SQLiteCommand("INSERT INTO Highscore (Score, realm, Username) VALUES (80,'So','KREIE')", connection);
                 command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Highscore (Score, realm, Username) VALUES ('30','So','Hoffe')", connection);
+                command = new SQLiteCommand("INSERT INTO Highscore (Score, realm, Username) VALUES (30,'So','Hoffe')", connection);
                 command.ExecuteNonQuery();
 
                 command = new SQLiteCommand("CREATE TABLE IF NOT EXISTS Realm (Realms VARCHAR(18))", connection);
@@ -64,9 +65,60 @@ namespace TowerDefenceEksamensProjekt
                 command.ExecuteNonQuery();
                 command = new SQLiteCommand("INSERT INTO Realm (Realms) VALUES ('So');", connection);
                 command.ExecuteNonQuery();
+
+                CreateTable("EnemyDB",
+                "Name TEXT, " +
+                "HP INTEGER," +
+                "Lv INTEGER");
+
+                InsertIntoTable("EnemyDB", "'Shadow',30,2");
+
+                CreateTable("TowerDB", "TowerName VARCHAR(15)");
+                InsertIntoTable("TowerDB", "'IceTower'");
+                InsertIntoTable("TowerDB", "'Wall'");
+                InsertIntoTable("TowerDB", "'Mine'");
+                InsertIntoTable("TowerDB", "'BananaFarm'");
+                InsertIntoTable("TowerDB", "'Stripclub'");
+
+                DoesTableExist("EnemyDB");
             }
 
             connection.Close();
+        }
+
+        public static void DoesTableExist(string Table)
+        {
+            var cmd = new SQLiteCommand("SELECT * from " + Table + "", connection);
+            var dataset = cmd.ExecuteReader();
+            while (dataset.Read())
+            {
+                var id = dataset.GetString(0);
+                Debug.WriteLine($"{id}");
+            }
+        }
+
+        public static void CreateTable(string TableName, string Values)
+        {
+            SQLiteConnection connection = new SQLiteConnection("Data Source=TowerDefence.db; Version=3; New=True");
+
+            connection.Open();
+
+            string querry = "CREATE TABLE IF NOT EXISTS " + TableName + " (" + Values + ")";
+
+            var command = new SQLiteCommand(querry, connection);
+            command.ExecuteNonQuery();
+        }
+
+        public static void InsertIntoTable(string TableName, string Values)
+        {
+            SQLiteConnection connection = new SQLiteConnection("Data Source=TowerDefence.db; Version=3; New=True");
+
+            connection.Open();
+
+            string querry = "INSERT INTO " + TableName + " VALUES(" + Values + ")";
+
+            var command = new SQLiteCommand(querry, connection);
+            command.ExecuteNonQuery();
         }
 
         public static bool Userlogin(string user, string pass)
@@ -104,6 +156,25 @@ namespace TowerDefenceEksamensProjekt
 
             connection.Close();
             return highscores.ToArray();
+        }
+
+        public static EnemyDB[] LoadEnemyDB()
+        {
+            connection.Open();
+            var EnemyList = new List<EnemyDB>();
+            var command = new SQLiteCommand("Select * from EnemyDB", connection);
+            SQLiteDataReader result = command.ExecuteReader();
+            while (result.Read())
+            {
+                var row = new EnemyDB();
+                row.Name = result.GetString(0);
+                row.HP = result.GetInt32(1);
+                row.Lv = result.GetInt32(2);
+                EnemyList.Add(row);
+            }
+
+            connection.Close();
+            return EnemyList.ToArray();
         }
 
         public static bool TabelCheck(string user)
