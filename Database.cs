@@ -31,49 +31,52 @@ namespace TowerDefenceEksamensProjekt
             {
                 connection.Open();
 
-                command = new SQLiteCommand("CREATE TABLE IF NOT EXISTS User (Username VARCHAR(18),Password VARCHAR(18), PRIMARY KEY (Username))", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO User (Username, Password) VALUES ('ADMIN','ADMIN');", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO User (Username, Password) VALUES ('HOFFE', 'HOFFE');", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO User (Username, Password) VALUES ('KREIE','FCM');", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO User (Username, Password) VALUES ('PEPEGA', 'REEEE');", connection);
-                command.ExecuteNonQuery();
+                CreateTable("User",
+                    "Username VARCHAR(18), " +
+                    "Password VARCHAR(18)," +
+                    "PRIMARY KEY (Username)");
 
-                command = new SQLiteCommand("CREATE TABLE IF NOT EXISTS Highscore (" +
+                InsertIntoTable("User", "'ADMIN','ADMIN'");
+                InsertIntoTable("User", "'HOFFE','HOFFE'");
+                InsertIntoTable("User", "'KREIE','FCM'");
+                InsertIntoTable("User", "'PEPEGA','REEEE'");
+
+                CreateTable("Realm", "Realms TEXT");
+
+                InsertIntoTable("Realm", "'Volcan'");
+                InsertIntoTable("Realm", "'The Dungeon'");
+                InsertIntoTable("Realm", "'Mine'");
+
+                CreateTable("Highscore",
                     "Score INTEGER, " +
-                    "realm VARCHAR(15)," +
-                    "Username VARCHAR(15)," +
-                    "FOREIGN KEY (Username) REFERENCES User(Username))", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Highscore (Score, realm, Username) VALUES (100,'So','PEPEGA')", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Highscore (Score, realm, Username) VALUES (80,'So','KREIE')", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Highscore (Score, realm, Username) VALUES (30,'So','Hoffe')", connection);
-                command.ExecuteNonQuery();
+                    "realm TEXT," +
+                    "Username TEXT," +
+                    "FOREIGN KEY (Username) REFERENCES User(Username)");
 
-                command = new SQLiteCommand("CREATE TABLE IF NOT EXISTS Realm (Realms VARCHAR(18))", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Realm (Realms) VALUES ('Hav');", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Realm (Realms) VALUES ('Kyst');", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Realm (Realms) VALUES ('Flod');", connection);
-                command.ExecuteNonQuery();
-                command = new SQLiteCommand("INSERT INTO Realm (Realms) VALUES ('So');", connection);
-                command.ExecuteNonQuery();
+                InsertIntoTable("Highscore", "100,'TheDungeon','PEPEGA'");
+                InsertIntoTable("Highscore", "80,'TheDungeon','KREIE'");
+                InsertIntoTable("Highscore", "69,'TheDungeon','HOFFE'");
 
                 CreateTable("EnemyDB",
-                "Name TEXT, " +
-                "HP INTEGER," +
-                "Lv INTEGER");
+                    "Name TEXT, " +
+                    "HP INTEGER," +
+                    "Lv INTEGER");
 
-                InsertIntoTable("EnemyDB", "'Shadow',30,2");
+                InsertIntoTable("EnemyDB", "'Goblin',30,10");
+                InsertIntoTable("EnemyDB", "'Rainbow Goblin',30,10");
+                InsertIntoTable("EnemyDB", "'Org',100,20");
+                InsertIntoTable("EnemyDB", "'Golem',250,35");
+                InsertIntoTable("EnemyDB", "'Shadow Knight',1000,40");
+                InsertIntoTable("EnemyDB", "'Shadow Lord',5000,50");
+                InsertIntoTable("EnemyDB", "'Royal Knight',10000,69");
+                InsertIntoTable("EnemyDB", "'Org King',15000,70");
+                InsertIntoTable("EnemyDB", "'Dark Prince',30000,75");
+                InsertIntoTable("EnemyDB", "'Boss Golem',40000,80");
+                InsertIntoTable("EnemyDB", "'Maō',50000,100");
 
-                CreateTable("TowerDB", "TowerName VARCHAR(15)");
+                CreateTable("TowerDB",
+                    "TowerName TEXT");
+
                 InsertIntoTable("TowerDB", "'IceTower'");
                 InsertIntoTable("TowerDB", "'Wall'");
                 InsertIntoTable("TowerDB", "'Mine'");
