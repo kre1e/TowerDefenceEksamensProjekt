@@ -16,18 +16,13 @@ namespace TowerDefenceEksamensProjekt
         private int dmg = 5;
         private float attackspeed;
         private double cooldown = 0;
-        private Texture2D sprite;
         public static ContentManager content;
+        public Vector2 origin;
+        public float rotatetion;
 
         public Building(string name)
         {
             this.name = name;
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            sprite = content.Load<Texture2D>("Tile2");
-            spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, 64, 64), color);
         }
 
         public void Attack(GameTime gametime, List<Enemy> enemyList, List<Projectile> projectilelist)
@@ -43,6 +38,22 @@ namespace TowerDefenceEksamensProjekt
                     }
                 }
             }
+
+            foreach (Enemy enemy in enemyList)
+            {
+                if ((int)Math.Sqrt(Math.Pow(this.position.X - enemy.position.X, 2) + Math.Pow(this.position.Y - enemy.position.Y, 2)) <= range)
+                {
+                    var distance = enemy.position - this.position;
+                    rotatetion = (float)Math.Atan2(distance.Y, distance.X);
+                }
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            sprite = content.Load<Texture2D>("Tower1");
+            //spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, 64, 64), color);
+            spriteBatch.Draw(sprite, position + new Vector2(sprite.Width / 4, sprite.Height / 4), null, Color.White, 1f, new Vector2(sprite.Width / 2, sprite.Height / 2), 0.5f, SpriteEffects.None, 1);
         }
 
         public override void Update(GameTime gameTime)
