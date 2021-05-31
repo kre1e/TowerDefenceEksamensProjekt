@@ -13,7 +13,6 @@ namespace TowerDefenceEksamensProjekt
         public Action action;
         private bool release = true;
         public Texture2D loginTexture;
-        public static ContentManager content;
         public Rectangle Rectangle;
         public string name;
         public SpriteFont userfont;

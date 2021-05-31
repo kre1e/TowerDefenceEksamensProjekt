@@ -19,15 +19,17 @@ namespace TowerDefenceEksamensProjekt
         public static KeyboardState currentKeyState;
         public static KeyboardState previousKeyState;
         public static HighScore[] highscorearray;
+        public static EnemyDB[] enemyarray;
 
         public static List<Projectile> projectilelist = new List<Projectile>();
-        public List<GameObject> gameobjects = new List<GameObject>();
+        public static List<Enemy> enemeyList = new List<Enemy>();
         public static ContentManager content;
 
         public static Level currrentLevel;
         public static string currentPlayer;
 
         private static GameWorld instance;
+        private EnemyPacks enemyPacks = new EnemyPacks();
 
         public static GameWorld Instance
         {
@@ -70,10 +72,10 @@ namespace TowerDefenceEksamensProjekt
             Building.content = Content;
             TowerMenu.content = Content;
             GameObject.content = Content;
-            gameobjects.Add(EnemyFactory.Instance.Create("Warrior"));
-            gameobjects.Add(EnemyFactory.Instance.Create("Mage"));
             currrentLevel = new LoginLevel();
             highscorearray = Database.Loadhighscore();
+            enemyarray = Database.LoadEnemyDB();
+            enemyPacks.EnemyPackBuilder("Org", 5, new Vector2(500, 500));
         }
 
         protected override void Update(GameTime gameTime)
@@ -87,7 +89,7 @@ namespace TowerDefenceEksamensProjekt
 
             previousKeyState = currentKeyState;
 
-            foreach (var go in gameobjects)
+            foreach (var go in enemeyList)
             {
                 go.Update(gameTime);
             }
@@ -103,7 +105,7 @@ namespace TowerDefenceEksamensProjekt
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             currrentLevel.Draw(_spriteBatch);
-            foreach (var go in gameobjects)
+            foreach (var go in enemeyList)
             {
                 go.Draw(_spriteBatch);
             }

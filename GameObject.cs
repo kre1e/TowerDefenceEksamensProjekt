@@ -10,7 +10,6 @@ namespace TowerDefenceEksamensProjekt
 {
     public class GameObject
     {
-
         protected Texture2D sprite;
         protected Vector2 velocity;
         public Vector2 position;
@@ -25,14 +24,11 @@ namespace TowerDefenceEksamensProjekt
 
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(sprite, position, null, Color.White, 1f, new Vector2(sprite.Width / 2, sprite.Height / 2), 0.5f, SpriteEffects.None, 1);
+            _spriteBatch.Draw(sprite, position, null, Color.White, 0f, new Vector2(sprite.Width / 2, sprite.Height / 2), 1f, SpriteEffects.None, 1);
         }
 
         public virtual void Update(GameTime gameTime)
         {
-
         }
-
-        
     }
 }

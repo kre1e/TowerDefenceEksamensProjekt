@@ -15,7 +15,6 @@ namespace TowerDefenceEksamensProjekt
         public Tile n;
         public List<Building> TowerList = new List<Building>();
         public Rectangle rectangle;
-        public static ContentManager content;
 
         public TowerMenu()
         {

@@ -20,7 +20,7 @@ namespace TowerDefenceEksamensProjekt
 
         public bool Move()
         {
-            Vector2 direction = (position - enemy.position);
+            Vector2 direction = position - enemy.position;
 
             if (direction != Vector2.Zero)
                 direction.Normalize();

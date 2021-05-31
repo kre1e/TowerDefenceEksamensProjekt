@@ -60,6 +60,7 @@ namespace TowerDefenceEksamensProjekt
                 CreateTable("EnemyDB",
                     "Name TEXT, " +
                     "HP INTEGER," +
+                    "Dmg INTEGER," +
                     "Lv INTEGER");
 
                 InsertIntoTable("EnemyDB", "'Goblin',30,10");

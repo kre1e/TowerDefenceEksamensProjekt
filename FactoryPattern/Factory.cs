@@ -6,6 +6,6 @@ namespace TowerDefenceEksamensProjekt.FactoryPattern
 {
     public abstract class Factory
     {
-        public abstract GameObject Create(string type);
+        public abstract Enemy Create(string type);
     }
 }

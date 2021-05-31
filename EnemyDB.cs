@@ -9,5 +9,6 @@ namespace TowerDefenceEksamensProjekt
         public string Name { get; set; }
         public int HP { get; set; }
         public int Lv { get; set; }
+        public int Dmg { get; set; }
     }
 }

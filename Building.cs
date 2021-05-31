@@ -12,11 +12,10 @@ namespace TowerDefenceEksamensProjekt
     {
         public string name;
         private int cost = 20;
-        private int range = 100;
+        private int range = 200;
         private int dmg = 5;
         private float attackspeed;
         private double cooldown = 0;
-        public static ContentManager content;
         public Vector2 origin;
         public float rotatetion;
         public int health = 50;
@@ -29,6 +28,7 @@ namespace TowerDefenceEksamensProjekt
         {
             this.name = name;
             sprite = content.Load<Texture2D>(name);
+            projectilelist = new List<Projectile>();
         }
 
         public void setBuilding()
@@ -50,7 +50,7 @@ namespace TowerDefenceEksamensProjekt
                             cooldown = gametime.ElapsedGameTime.TotalSeconds;
                         }
                         var distance = enemy.position - this.position;
-                        rotatetion = (float)Math.Atan2(distance.Y, distance.X);
+                        rotatetion = (float)Math.Atan2(distance.Y, distance.X) + 90;
                     }
                 }
             }
@@ -79,7 +79,7 @@ namespace TowerDefenceEksamensProjekt
                     return;
 
                 case "Tower":
-                    Attack(gameTime, enemyList, projectilelist);
+                    Attack(gameTime, GameWorld.enemeyList, projectilelist);
                     return;
 
                 case "IceTower":
