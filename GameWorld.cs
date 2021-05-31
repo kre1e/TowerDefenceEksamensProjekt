@@ -16,13 +16,16 @@ namespace TowerDefenceEksamensProjekt
         private SpriteBatch _spriteBatch;
         public static SpriteFont userfont;
 
+        private Texture2D collisionTexture;
+
         public static KeyboardState currentKeyState;
         public static KeyboardState previousKeyState;
         public static HighScore[] highscorearray;
         public static EnemyDB[] enemyarray;
 
         public static List<Projectile> projectilelist = new List<Projectile>();
-        public static List<Enemy> enemeyList = new List<Enemy>();
+        public static List<Enemy> enemyList = new List<Enemy>();
+        public static List<Building> buildingList = new List<Building>();
         public static ContentManager content;
 
         public static Level currrentLevel;
@@ -67,6 +70,7 @@ namespace TowerDefenceEksamensProjekt
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             userfont = Content.Load<SpriteFont>("File");
+            collisionTexture = Content.Load<Texture2D>("Pixel");
             Tile.content = Content;
             Button.content = Content;
             Building.content = Content;
@@ -89,29 +93,52 @@ namespace TowerDefenceEksamensProjekt
 
             previousKeyState = currentKeyState;
 
-            foreach (var go in enemeyList)
+            foreach (Building gameob in buildingList)
             {
-                go.Update(gameTime);
+                gameob.Update(gameTime);
+
+                foreach (Enemy enemy in enemyList)
+                {
+                    gameob.CheckCollision(enemy);
+                }
             }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-            _spriteBatch.Begin();
-            currrentLevel.Draw(_spriteBatch);
-            foreach (var go in enemeyList)
-            {
-                go.Draw(_spriteBatch);
-            }
-
-            _spriteBatch.End();
-            base.Draw(gameTime);
-        }
     }
+
+    public void DrawCollisionBox(GameObject go)
+    {
+        //Der laves en streg med tykkelsen 1 for hver side af Collision.
+        Rectangle topLine = new Rectangle(go.Collision.X, go.Collision.Y, go.Collision.Width, 1);
+        Rectangle bottomLine = new Rectangle(go.Collision.X, go.Collision.Y + go.Collision.Height, go.Collision.Width, 1);
+        Rectangle rightLine = new Rectangle(go.Collision.X + go.Collision.Width, go.Collision.Y, 1, go.Collision.Height);
+        Rectangle leftLine = new Rectangle(go.Collision.X, go.Collision.Y, 1, go.Collision.Height);
+        //Der tegnes en streg med tykkelsen 1 for hver side af Collision med collsionTexture med farven rød.
+        _spriteBatch.Draw(collisionTexture, topLine, Color.Red);
+        _spriteBatch.Draw(collisionTexture, bottomLine, Color.Red);
+        _spriteBatch.Draw(collisionTexture, rightLine, Color.Red);
+        _spriteBatch.Draw(collisionTexture, leftLine, Color.Red);
+    }
+
+    protected override void Draw(GameTime gameTime)
+    {
+        GraphicsDevice.Clear(Color.CornflowerBlue);
+
+        // TODO: Add your drawing code here
+        _spriteBatch.Begin();
+        currrentLevel.Draw(_spriteBatch);
+        foreach (var go in enemyList)
+        {
+#if DEBUG
+            DrawCollisionBox(go);
+#endif
+            go.Draw(_spriteBatch);
+        }
+
+        _spriteBatch.End();
+        base.Draw(gameTime);
+    }
+}
 }
