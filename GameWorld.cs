@@ -107,7 +107,6 @@ namespace TowerDefenceEksamensProjekt
             base.Update(gameTime);
         }
 
-
         public void DrawCollisionBox(GameObject go)
         {
             //Der laves en streg med tykkelsen 1 for hver side af Collision.
@@ -141,4 +140,6 @@ namespace TowerDefenceEksamensProjekt
             base.Draw(gameTime);
         }
     }
+
 }
+
