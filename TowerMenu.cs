@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -14,15 +15,20 @@ namespace TowerDefenceEksamensProjekt
         public Tile n;
         public List<Building> TowerList = new List<Building>();
         public Rectangle rectangle;
+        public static ContentManager content;
 
         public TowerMenu()
         {
-            TowerList.Add(new Building("Tower1"));
-            TowerList.Add(new Building("Tower2"));
+            TowerList.Add(new Building("Base"));
+            TowerList.Add(new Building("Tower"));
+            TowerList.Add(new Building("FlameTower"));
+            TowerList.Add(new Building("Wall"));
+            TowerList.Add(new Building("BananaFarm"));
+
             buttons = new List<Button>();
             for (int i = 0; i < TowerList.Count; i++)
             {
-                buttons.Add(new Button(new Rectangle((int)this.position.X, (int)this.position.Y + i * 30, 100, 30), TowerList[i].name, delegate () { n.ContainTower = TowerList[i - 1].Clone() as Building; }));
+                buttons.Add(new Button(new Rectangle((int)this.position.X, (int)this.position.Y + i * 30, 100, 30), TowerList[i].name, TowerList[i].setBuilding);
             }
             rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, 100, 30 * buttons.Count);
         }

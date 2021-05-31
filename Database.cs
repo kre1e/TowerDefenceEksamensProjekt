@@ -79,7 +79,6 @@ namespace TowerDefenceEksamensProjekt
 
                 InsertIntoTable("TowerDB", "'IceTower'");
                 InsertIntoTable("TowerDB", "'Wall'");
-                InsertIntoTable("TowerDB", "'Mine'");
                 InsertIntoTable("TowerDB", "'BananaFarm'");
                 InsertIntoTable("TowerDB", "'Stripclub'");
 

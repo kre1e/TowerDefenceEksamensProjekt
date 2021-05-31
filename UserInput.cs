@@ -25,7 +25,7 @@ namespace TowerDefenceEksamensProjekt
             currentInput = "";
             this.informationText = informationText;
             this.parrentUserLogin = parrentUserLogin;
-            loginTexture = GameWorld.content.Load<Texture2D>("Tile1");
+            loginTexture = GameWorld.content.Load<Texture2D>("Tile2");
             userfont = GameWorld.content.Load<SpriteFont>("File");
             this.Rectangle = newRectangle;
         }

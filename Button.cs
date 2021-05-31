@@ -20,7 +20,7 @@ namespace TowerDefenceEksamensProjekt
 
         public Button(Rectangle newRectangle, string name, Action action)
         {
-            loginTexture = content.Load<Texture2D>("Tile1");
+            loginTexture = content.Load<Texture2D>("Tile2");
             userfont = GameWorld.content.Load<SpriteFont>("File");
             this.Rectangle = newRectangle;
             this.name = name;
