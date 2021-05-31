@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TowerDefenceEksamensProjekt.FactoryPattern
 {
-    class EnemyFactory : Factory
+    internal class EnemyFactory : Factory
     {
         private static EnemyFactory instance;
 
