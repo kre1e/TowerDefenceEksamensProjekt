@@ -10,15 +10,19 @@ namespace TowerDefenceEksamensProjekt
 {
     public class GameObject
     {
+
         protected Texture2D sprite;
         protected Vector2 velocity;
         public Vector2 position;
         protected Color color = Color.White;
         protected SpriteBatch _spriteBatch;
+        public static ContentManager content;
+
+
 
         public void SetSprite(string spriteName)
         {
-            sprite = GameWorld.Instance.Content.Load<Texture2D>(spriteName);
+            sprite = content.Load<Texture2D>(spriteName);
         }
 
         public virtual void Draw(SpriteBatch _spriteBatch)

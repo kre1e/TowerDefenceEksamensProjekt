@@ -72,6 +72,7 @@ namespace TowerDefenceEksamensProjekt
             Tile.content = Content;
             Button.content = Content;
             Building.content = Content;
+            GameObject.content = Content;
             currrentLevel = new LoginLevel();
             highscorearray = Database.Loadhighscore();
         }
