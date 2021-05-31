@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using TowerDefenceEksamensProjekt.FactoryPattern;
 using TowerDefenceEksamensProjekt.Levels;
 
 namespace TowerDefenceEksamensProjekt
@@ -21,10 +22,27 @@ namespace TowerDefenceEksamensProjekt
 
         public static List<Enemy> listEnemy = new List<Enemy>();
         public static List<Projectile> projectilelist = new List<Projectile>();
+        public List<GameObject> gameobjects = new List<GameObject>();
         public static ContentManager content;
 
         public static Level currrentLevel;
         public static string currentPlayer;
+
+        private static GameWorld instance;
+
+        public static GameWorld Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GameWorld();
+                }
+
+                return instance;
+            }
+        }
+
 
         public GameWorld()
         {
@@ -39,7 +57,9 @@ namespace TowerDefenceEksamensProjekt
         {
             // TODO: Add your initialization logic here
             Database.DatabaseSetup();
-            content = Content;
+            //content = Content;
+            gameobjects.Add(EnemyFactory.Instance.Create("Warrior"));
+            gameobjects.Add(EnemyFactory.Instance.Create("Mage"));
 
             base.Initialize();
         }
