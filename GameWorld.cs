@@ -27,10 +27,6 @@ namespace TowerDefenceEksamensProjekt
         public static Level currrentLevel;
         public static string currentPlayer;
 
-        private EnemyFactory enemyFactory;
-
-        public Enemy enemy;
-
         private static GameWorld instance;
 
         public static GameWorld Instance
@@ -46,7 +42,6 @@ namespace TowerDefenceEksamensProjekt
             }
         }
 
-
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -60,12 +55,7 @@ namespace TowerDefenceEksamensProjekt
         {
             // TODO: Add your initialization logic here
             Database.DatabaseSetup();
-            //content = Content;
-            enemy = new Enemy();
-            gameobjects = new List<GameObject>();
-            enemyFactory = new EnemyFactory();
-            gameobjects.Add(enemyFactory.Create("Warrior"));
-            gameobjects.Add(enemyFactory.Create("Mage"));
+            content = Content;
 
             base.Initialize();
         }
@@ -79,6 +69,8 @@ namespace TowerDefenceEksamensProjekt
             Button.content = Content;
             Building.content = Content;
             GameObject.content = Content;
+            gameobjects.Add(EnemyFactory.Instance.Create("Warrior"));
+            gameobjects.Add(EnemyFactory.Instance.Create("Mage"));
             currrentLevel = new LoginLevel();
             highscorearray = Database.Loadhighscore();
         }

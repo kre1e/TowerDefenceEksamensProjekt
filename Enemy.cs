@@ -9,13 +9,7 @@ namespace TowerDefenceEksamensProjekt
     public class Enemy : GameObject
     {
         public static Vector2 CurrentPosition = new Vector2(200, 200);
-        public Vector2 Position
-        {
-            get
-            {
-                return position;
-            }
-        }
+
         public Enemy()
         {
             position = CurrentPosition;
@@ -23,14 +17,12 @@ namespace TowerDefenceEksamensProjekt
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-
+            base.Draw(spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
         {
-
+            base.Update(gameTime);
         }
-
-
     }
 }
