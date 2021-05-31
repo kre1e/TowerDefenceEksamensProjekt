@@ -79,7 +79,7 @@ namespace TowerDefenceEksamensProjekt
                     return;
 
                 case "Tower":
-                    Attack(gameTime, GameWorld.enemeyList, projectilelist);
+                    Attack(gameTime, GameWorld.enemyList, projectilelist);
                     return;
 
                 case "IceTower":

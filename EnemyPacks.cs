@@ -12,7 +12,7 @@ namespace TowerDefenceEksamensProjekt
 
         public void EnemyPackBuilder(string EnemyPackName, int PackSize, Vector2 EnemySpawnLocation)
         {
-            enemeyList = GameWorld.enemeyList;
+            enemeyList = GameWorld.enemyList;
 
             for (int i = 0; i < PackSize; i++)
             {
