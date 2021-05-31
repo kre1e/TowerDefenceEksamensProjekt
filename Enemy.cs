@@ -8,9 +8,18 @@ namespace TowerDefenceEksamensProjekt
 {
     public class Enemy : GameObject
     {
-
-        private Vector2 Left = new Vector2(200, 200);
-        private Vector2 Right = new Vector2(1780, 200);
+        public static Vector2 CurrentPosition = new Vector2(200, 200);
+        public Vector2 Position
+        {
+            get
+            {
+                return position;
+            }
+        }
+        public Enemy()
+        {
+            position = CurrentPosition;
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

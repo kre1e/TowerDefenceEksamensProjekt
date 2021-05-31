@@ -20,13 +20,16 @@ namespace TowerDefenceEksamensProjekt
         public static KeyboardState previousKeyState;
         public static HighScore[] highscorearray;
 
-        public static List<Enemy> listEnemy = new List<Enemy>();
         public static List<Projectile> projectilelist = new List<Projectile>();
         public List<GameObject> gameobjects = new List<GameObject>();
         public static ContentManager content;
 
         public static Level currrentLevel;
         public static string currentPlayer;
+
+        private EnemyFactory enemyFactory;
+
+        public Enemy enemy;
 
         private static GameWorld instance;
 
@@ -58,8 +61,11 @@ namespace TowerDefenceEksamensProjekt
             // TODO: Add your initialization logic here
             Database.DatabaseSetup();
             //content = Content;
-            gameobjects.Add(EnemyFactory.Instance.Create("Warrior"));
-            gameobjects.Add(EnemyFactory.Instance.Create("Mage"));
+            enemy = new Enemy();
+            gameobjects = new List<GameObject>();
+            enemyFactory = new EnemyFactory();
+            gameobjects.Add(enemyFactory.Create("Warrior"));
+            gameobjects.Add(enemyFactory.Create("Mage"));
 
             base.Initialize();
         }
@@ -88,6 +94,10 @@ namespace TowerDefenceEksamensProjekt
 
             previousKeyState = currentKeyState;
 
+            foreach (var go in gameobjects)
+            {
+                go.Update(gameTime);
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -100,6 +110,10 @@ namespace TowerDefenceEksamensProjekt
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             currrentLevel.Draw(_spriteBatch);
+            foreach (var go in gameobjects)
+            {
+                go.Draw(_spriteBatch);
+            }
 
             _spriteBatch.End();
             base.Draw(gameTime);

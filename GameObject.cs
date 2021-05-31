@@ -18,8 +18,6 @@ namespace TowerDefenceEksamensProjekt
         protected SpriteBatch _spriteBatch;
         public static ContentManager content;
 
-
-
         public void SetSprite(string spriteName)
         {
             sprite = content.Load<Texture2D>(spriteName);
@@ -27,7 +25,7 @@ namespace TowerDefenceEksamensProjekt
 
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(sprite, position + new Vector2(sprite.Width / 4, sprite.Height / 4), null, Color.White, 1f, new Vector2(sprite.Width / 2, sprite.Height / 2), 0.5f, SpriteEffects.None, 1);
+            _spriteBatch.Draw(sprite, position, null, Color.White, 1f, new Vector2(sprite.Width / 2, sprite.Height / 2), 0.5f, SpriteEffects.None, 1);
         }
 
         public virtual void Update(GameTime gameTime)

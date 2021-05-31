@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TowerDefenceEksamensProjekt.FactoryPattern
 {
-    internal class EnemyFactory : Factory
+    public class EnemyFactory : Factory
     {
         private static EnemyFactory instance;
 
@@ -19,7 +19,6 @@ namespace TowerDefenceEksamensProjekt.FactoryPattern
                 return instance;
             }
         }
-
 
         public override GameObject Create(string type)
         {
