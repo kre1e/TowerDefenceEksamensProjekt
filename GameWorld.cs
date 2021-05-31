@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using TowerDefenceEksamensProjekt.FactoryPattern;
 using TowerDefenceEksamensProjekt.Levels;
 
 namespace TowerDefenceEksamensProjekt
@@ -19,12 +20,27 @@ namespace TowerDefenceEksamensProjekt
         public static KeyboardState previousKeyState;
         public static HighScore[] highscorearray;
 
-        public static List<Enemy> listEnemy = new List<Enemy>();
         public static List<Projectile> projectilelist = new List<Projectile>();
+        public List<GameObject> gameobjects = new List<GameObject>();
         public static ContentManager content;
 
         public static Level currrentLevel;
         public static string currentPlayer;
+
+        private static GameWorld instance;
+
+        public static GameWorld Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GameWorld();
+                }
+
+                return instance;
+            }
+        }
 
         public GameWorld()
         {
@@ -53,6 +69,9 @@ namespace TowerDefenceEksamensProjekt
             Button.content = Content;
             Building.content = Content;
             TowerMenu.content = Content;
+            GameObject.content = Content;
+            gameobjects.Add(EnemyFactory.Instance.Create("Warrior"));
+            gameobjects.Add(EnemyFactory.Instance.Create("Mage"));
             currrentLevel = new LoginLevel();
             highscorearray = Database.Loadhighscore();
         }
@@ -68,6 +87,10 @@ namespace TowerDefenceEksamensProjekt
 
             previousKeyState = currentKeyState;
 
+            foreach (var go in gameobjects)
+            {
+                go.Update(gameTime);
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -80,6 +103,10 @@ namespace TowerDefenceEksamensProjekt
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             currrentLevel.Draw(_spriteBatch);
+            foreach (var go in gameobjects)
+            {
+                go.Draw(_spriteBatch);
+            }
 
             _spriteBatch.End();
             base.Draw(gameTime);
