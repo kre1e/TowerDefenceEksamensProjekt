@@ -31,7 +31,7 @@ namespace TowerDefenceEksamensProjekt
             projectilelist = new List<Projectile>();
         }
 
-        public void setBuilding()
+        public void SetBuilding()
         {
             (GameWorld.currrentLevel as GameLevel).towerMenu.n.ContainTower = (Building)this.MemberwiseClone();
         }

@@ -24,7 +24,9 @@ namespace TowerDefenceEksamensProjekt
         public static EnemyDB[] enemyarray;
 
         public static List<Projectile> projectilelist = new List<Projectile>();
+        public static List<Projectile> projectileDeletelist = new List<Projectile>();
         public static List<Enemy> enemyList = new List<Enemy>();
+        public static List<Enemy> enemyDeleteList = new List<Enemy>();
         public static List<Building> buildingList = new List<Building>();
         public static ContentManager content;
 
@@ -79,7 +81,7 @@ namespace TowerDefenceEksamensProjekt
             currrentLevel = new LoginLevel();
             highscorearray = Database.Loadhighscore();
             enemyarray = Database.LoadEnemyDB();
-            enemyPacks.EnemyPackBuilder("Org", 5, new Vector2(500, 500));
+            enemyPacks.EnemyPackBuilder("Org", 5, new Vector2(540, 540));
         }
 
         protected override void Update(GameTime gameTime)
@@ -102,9 +104,47 @@ namespace TowerDefenceEksamensProjekt
                     gameob.CheckCollision(enemy);
                 }
             }
+
+            foreach (var item in enemyList)
+            {
+                item.Update(gameTime);
+            }
+
+            foreach (var item in projectilelist)
+            {
+                item.Update(gameTime);
+            }
+
+            if (enemyDeleteList.Count > 0)
+            {
+                foreach (var item in enemyDeleteList)
+                {
+                    enemyList.Remove(item);
+                }
+                enemyDeleteList.Clear();
+            }
+
+            if (projectileDeletelist.Count > 0)
+            {
+                foreach (var item in projectileDeletelist)
+                {
+                    projectilelist.Remove(item);
+                }
+                projectileDeletelist.Clear();
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+        }
+
+        public static void DestroyEnemy(Enemy item)
+        {
+            enemyDeleteList.Add(item);
+        }
+
+        public static void DestroyProjectile(Projectile item)
+        {
+            projectileDeletelist.Add(item);
         }
 
         public void DrawCollisionBox(GameObject go)
@@ -135,11 +175,16 @@ namespace TowerDefenceEksamensProjekt
 #endif
                 go.Draw(_spriteBatch);
             }
+            foreach (var go in projectilelist)
+            {
+#if DEBUG
+                DrawCollisionBox(go);
+#endif
+                go.Draw(_spriteBatch);
+            }
 
             _spriteBatch.End();
             base.Draw(gameTime);
         }
     }
-
 }
-

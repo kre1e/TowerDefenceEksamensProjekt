@@ -45,7 +45,7 @@ namespace TowerDefenceEksamensProjekt
 
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(sprite, position, null, color, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 1);
+            _spriteBatch.Draw(sprite, position, null, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
         }
 
         public virtual void Update(GameTime gameTime)

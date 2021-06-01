@@ -8,15 +8,15 @@ namespace TowerDefenceEksamensProjekt
 {
     public class Enemy : GameObject
     {
-        public static Vector2 CurrentPosition = new Vector2(224, 224);
         public int dmg;
         public int hp;
+        public int lv;
 
         public Enemy(int dmg, int hp, int lv)
         {
-            position = CurrentPosition;
             this.dmg = dmg;
             this.hp = hp;
+            this.lv = lv;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -27,6 +27,10 @@ namespace TowerDefenceEksamensProjekt
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (this.hp <= 0)
+            {
+                GameWorld.DestroyEnemy(this);
+            }
         }
     }
 }

@@ -10,12 +10,13 @@ namespace TowerDefenceEksamensProjekt
     {
         private Enemy enemy;
         private int dmg;
-        private int speed = 10;
+        private int speed = 3;
 
         public Projectile(Enemy enemy, int dmg)
         {
             this.enemy = enemy;
             this.dmg = dmg;
+            sprite = GameWorld.content.Load<Texture2D>("Tile1");
         }
 
         public bool Move()
@@ -37,12 +38,17 @@ namespace TowerDefenceEksamensProjekt
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            while (Move())
+            {
+                Move();
+            }
+            //if (!Move())
+            //    GameWorld.DestroyProjectile(this);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            _spriteBatch.Draw(sprite, position, null, Color.Red, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
         }
     }
 }
