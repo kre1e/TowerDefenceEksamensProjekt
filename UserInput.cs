@@ -32,8 +32,8 @@ namespace TowerDefenceEksamensProjekt
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(loginTexture, Rectangle, Color.Gray);
-            spriteBatch.DrawString(userfont, informationText + currentInput, new Vector2(Rectangle.X - 80, Rectangle.Y + 10), Color.Black);
+            spriteBatch.Draw(loginTexture, Rectangle, null, Color.Gray, 0, Vector2.Zero, SpriteEffects.None, layerdef);
+            spriteBatch.DrawString(userfont, informationText + currentInput, new Vector2(Rectangle.X - 80, Rectangle.Y + 10), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, layerdef + 0.01f);
         }
 
         private bool KeypressTest(Keys theKey)

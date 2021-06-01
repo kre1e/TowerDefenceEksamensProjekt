@@ -28,8 +28,8 @@ namespace TowerDefenceEksamensProjekt
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(loginTexture, Rectangle, Color.Gray);
-            spriteBatch.DrawString(userfont, name, new Vector2(Rectangle.X + 20, Rectangle.Y), Color.White);
+            spriteBatch.Draw(loginTexture, Rectangle, null, color, 0, Vector2.Zero, SpriteEffects.None, layerdef);
+            spriteBatch.DrawString(userfont, name, new Vector2(Rectangle.X + 20, Rectangle.Y), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, layerdef + 0.01f);
         }
 
         public override void Update(GameTime gameTime)

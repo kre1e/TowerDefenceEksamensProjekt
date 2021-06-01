@@ -12,7 +12,6 @@ namespace TowerDefenceEksamensProjekt
         public Texture2D tile;
 
         public Rectangle Rectangle;
-        public static ContentManager content;
         private GameObject containTower;
 
         public GameObject ContainTower
@@ -31,7 +30,7 @@ namespace TowerDefenceEksamensProjekt
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tile, Rectangle, color);
+            spriteBatch.Draw(tile, Rectangle, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
             if (ContainTower != null)
                 ContainTower.Draw(spriteBatch);
         }

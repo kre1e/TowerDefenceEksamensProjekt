@@ -166,7 +166,7 @@ namespace TowerDefenceEksamensProjekt
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack);
             currrentLevel.Draw(_spriteBatch);
             foreach (var go in enemyList)
             {
@@ -177,9 +177,6 @@ namespace TowerDefenceEksamensProjekt
             }
             foreach (var go in projectilelist)
             {
-#if DEBUG
-                DrawCollisionBox(go);
-#endif
                 go.Draw(_spriteBatch);
             }
 

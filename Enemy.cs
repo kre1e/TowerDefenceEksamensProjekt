@@ -17,6 +17,7 @@ namespace TowerDefenceEksamensProjekt
             this.dmg = dmg;
             this.hp = hp;
             this.lv = lv;
+            this.layerdef = 0.22f;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -27,6 +28,7 @@ namespace TowerDefenceEksamensProjekt
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            this.position += new Vector2(0, (float)(10f * gameTime.ElapsedGameTime.TotalSeconds));
             if (this.hp <= 0)
             {
                 GameWorld.DestroyEnemy(this);
