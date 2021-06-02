@@ -10,7 +10,7 @@ namespace TowerDefenceEksamensProjekt
     {
         private Enemy enemy;
         private int dmg;
-        private int speed = 100;
+        private int speed = 300;
 
         public Projectile(Enemy enemy, int dmg, Vector2 towerPosition)
         {

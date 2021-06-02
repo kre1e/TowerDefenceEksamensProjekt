@@ -14,7 +14,7 @@ namespace TowerDefenceEksamensProjekt
         private int cost = 20;
         private int range = 200;
         private int dmg = 5;
-        private float attackspeed = 1;
+        private float attackspeed = 0.4f;
         private double cooldown = 0;
         public Vector2 origin;
         public float rotatetion;
@@ -42,15 +42,15 @@ namespace TowerDefenceEksamensProjekt
                 {
                     if ((int)Math.Sqrt(Math.Pow(this.position.X - enemy.position.X, 2) + Math.Pow(this.position.Y - enemy.position.Y, 2)) <= range)
                     {
-                        if ((gametime.TotalGameTime.TotalSeconds - cooldown) > attackspeed)
-                        {
-                            GameWorld.projectilelist.Add(new Projectile(enemy, dmg, this.position));
-
-                            cooldown = gametime.TotalGameTime.TotalSeconds;
-                        }
                         Vector2 currentposition = position + new Vector2(sprite.Width / 4, sprite.Height / 4);
                         var distance = enemy.position - currentposition;
                         rotatetion = (float)Math.Atan2(distance.Y, distance.X) + (float)Math.PI / 2;
+                        if ((gametime.TotalGameTime.TotalSeconds - cooldown) > attackspeed)
+                        {
+                            GameWorld.projectilelist.Add(new Projectile(enemy, dmg, currentposition + Vector2.Transform(new Vector2(0, -34), Matrix.CreateRotationZ(rotatetion))));
+
+                            cooldown = gametime.TotalGameTime.TotalSeconds;
+                        }
                         break;
                     }
                 }

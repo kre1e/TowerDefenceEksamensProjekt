@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TowerDefenceEksamensProjekt.FactoryPattern;
 
 namespace TowerDefenceEksamensProjekt.Levels
@@ -20,13 +21,14 @@ namespace TowerDefenceEksamensProjekt.Levels
         {
             this.currentmap = currentmap;
             towerMenu = new TowerMenu();
+            Task.Run(() => { EnemyPacks.Instance.EnemyPackBuilder("Org", 2, new Vector2(100, 100)); });
         }
 
         public override void Draw(SpriteBatch _spriteBatch)
         {
             currentmap.Draw(_spriteBatch);
-            _spriteBatch.DrawString(GameWorld.userfont, "Username: " + GameWorld.currentPlayer, new Vector2(100, 1), Color.Black);
-            _spriteBatch.DrawString(GameWorld.userfont, "Score:  " + score, new Vector2(1, 1), Color.Black);
+            _spriteBatch.DrawString(GameWorld.userfont, "Username: " + GameWorld.currentPlayer, new Vector2(100, 1), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
+            _spriteBatch.DrawString(GameWorld.userfont, "Score:  " + score, new Vector2(1, 1), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
             towerMenu.Draw(_spriteBatch);
 
             if (ShowScoreBoard == true)

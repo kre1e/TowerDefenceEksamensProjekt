@@ -25,7 +25,9 @@ namespace TowerDefenceEksamensProjekt
 
         public static List<Projectile> projectilelist = new List<Projectile>();
         public static List<Projectile> projectileDeletelist = new List<Projectile>();
+
         public static List<Enemy> enemyList = new List<Enemy>();
+        public List<Enemy> enemyToAdd = new List<Enemy>();
         public static List<Enemy> enemyDeleteList = new List<Enemy>();
         public static List<Building> buildingList = new List<Building>();
         public static ContentManager content;
@@ -34,7 +36,8 @@ namespace TowerDefenceEksamensProjekt
         public static string currentPlayer;
 
         private static GameWorld instance;
-        private EnemyPacks enemyPacks = new EnemyPacks();
+
+        public static double gameTime1;
 
         public static GameWorld Instance
         {
@@ -81,7 +84,6 @@ namespace TowerDefenceEksamensProjekt
             currrentLevel = new LoginLevel();
             highscorearray = Database.Loadhighscore();
             enemyarray = Database.LoadEnemyDB();
-            enemyPacks.EnemyPackBuilder("Org", 5, new Vector2(540, 540));
         }
 
         protected override void Update(GameTime gameTime)
@@ -93,6 +95,7 @@ namespace TowerDefenceEksamensProjekt
             if (currentKeyState.IsKeyDown(Keys.Escape))
                 Exit();
 
+            gameTime1 = gameTime.TotalGameTime.TotalSeconds;
             previousKeyState = currentKeyState;
 
             foreach (Building gameob in buildingList)
@@ -105,11 +108,6 @@ namespace TowerDefenceEksamensProjekt
                 }
             }
 
-            foreach (var item in enemyList)
-            {
-                item.Update(gameTime);
-            }
-
             foreach (var item in projectilelist)
             {
                 item.Update(gameTime);
@@ -117,10 +115,7 @@ namespace TowerDefenceEksamensProjekt
 
             if (enemyDeleteList.Count > 0)
             {
-                foreach (var item in enemyDeleteList)
-                {
-                    enemyList.Remove(item);
-                }
+                enemyList.RemoveAll(x => enemyDeleteList.Contains(x));
                 enemyDeleteList.Clear();
             }
 
@@ -168,11 +163,10 @@ namespace TowerDefenceEksamensProjekt
             // TODO: Add your drawing code here
             _spriteBatch.Begin(SpriteSortMode.FrontToBack);
             currrentLevel.Draw(_spriteBatch);
+            enemyList.AddRange(enemyToAdd);
+            enemyToAdd.Clear();
             foreach (var go in enemyList)
             {
-#if DEBUG
-                DrawCollisionBox(go);
-#endif
                 go.Draw(_spriteBatch);
             }
             foreach (var go in projectilelist)
