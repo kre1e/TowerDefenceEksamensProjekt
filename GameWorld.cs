@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using TowerDefenceEksamensProjekt.FactoryPattern;
 using TowerDefenceEksamensProjekt.Levels;
+using System.Threading.Tasks;
+//using System.Drawing;
+using System.Linq;
+using System.Text;
 
 namespace TowerDefenceEksamensProjekt
 {
@@ -37,8 +41,17 @@ namespace TowerDefenceEksamensProjekt
         private EnemyPacks enemyPacks = new EnemyPacks();
 
         //tager sig af Nodes
+        //public static Point BananaFarm;
+        //public static Point Base;
         public static Point BananaFarm;
         public static Point Base;
+       
+        private Color color;
+        public Color MyColor
+        {
+            get { return myColor; }
+            set { myColor = value; }
+        }
 
         AStar aStar;
 
@@ -46,8 +59,9 @@ namespace TowerDefenceEksamensProjekt
 
         public void FindPath()
         {
-            finalPath = aStar.FindPath(start, myGoal, CreathNodes());
-            colornodes();
+            finalPath = aStar.FindPath(BananaFarm, Base, CreateNodes());
+
+            ColorNodes();
         }
 
         public List<Node> CreateNodes()
@@ -161,6 +175,21 @@ namespace TowerDefenceEksamensProjekt
                 projectileDeletelist.Clear();
             }
             // TODO: Add your update logic here
+            foreach (Tile item in GameLevel.currentmap.Tiles)
+            {
+                if (aStar.Open.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
+                {
+                    item.MyColor = Color.CornflowerBlue;
+                }
+                if (aStar.Closed.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
+                {
+                    item.MyColor = Color.Orange;
+                }
+                if (finalPath.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
+                {
+                    item.MyColor = Color.GreenYellow;
+                }
+            }
 
             base.Update(gameTime);
         }

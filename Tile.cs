@@ -35,12 +35,12 @@ namespace TowerDefenceEksamensProjekt
             set { myNode = value; }
         }
 
-        private Color myColor;
-        public Color MyColor
-        {
-            get { return myColor; }
-            set { myColor = value; }
-        }
+        //private Color myColor;
+        //public Color MyColor
+        //{
+        //    get { return myColor; }
+        //    set { myColor = value; }
+        //}
 
         public Point MyPos
         {
@@ -48,11 +48,11 @@ namespace TowerDefenceEksamensProjekt
             set { myPos = value; }
         }
 
-        public Tile(Point pos)
-        {
-            this.myPos = pos;
-            walkAble = true;
-        }
+        //public Tile(Point pos)
+        //{
+        //    this.myPos = pos;
+        //    walkAble = true;
+        //}
 
         public GameObject ContainTower
         {
@@ -85,10 +85,11 @@ namespace TowerDefenceEksamensProjekt
 
     public class CoolTile : Tile
     {
-        public CoolTile(int i, Rectangle newRectangle)
+        public CoolTile(int i, Rectangle newRectangle, Point pos)
         {
             tile = content.Load<Texture2D>("Tile" + i);
             this.Rectangle = newRectangle;
+            WalkAble = true;
         }
     }
 }

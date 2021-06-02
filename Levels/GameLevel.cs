@@ -15,7 +15,7 @@ namespace TowerDefenceEksamensProjekt.Levels
         private bool ShowScoreBoard = false;
         public bool release = true;
         private int score;
-        
+       
 
         public GameLevel(Map currentmap)
         {
@@ -73,6 +73,7 @@ namespace TowerDefenceEksamensProjekt.Levels
                     release = true;
                 }
             }
+            
             towerMenu.Update(gameTime);
             currentmap.Update(gameTime);
         }
