@@ -76,11 +76,15 @@ namespace TowerDefenceEksamensProjekt.Levels
         }
 
         public override void Update(GameTime gameTime)
-        {
+        {   
+            
             KeyboardState currentKeyState = GameWorld.currentKeyState;
             MouseState mouseState = Mouse.GetState();
             if (currentKeyState.IsKeyDown(Keys.Tab))
+            {
                 ShowScoreBoard = true;
+                FindPath();
+            }
             else
                 ShowScoreBoard = false;
 
