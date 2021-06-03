@@ -12,7 +12,7 @@ namespace TowerDefenceEksamensProjekt
     {
         public Texture2D tile;
 
-        private Point myPos;
+        
 
         private bool walkAble;
         TileType mytype = TileType.Empty;
@@ -42,13 +42,9 @@ namespace TowerDefenceEksamensProjekt
         //    set { myColor = value; }
         //}
 
-        public Point MyPos
-        {
-            get { return myPos; }
-            set { myPos = value; }
-        }
+        
 
-        //public Tile(Point pos)
+        //public Tile(Vector2 pos)
         //{
         //    this.myPos = pos;
         //    walkAble = true;
@@ -85,7 +81,7 @@ namespace TowerDefenceEksamensProjekt
 
     public class CoolTile : Tile
     {
-        public CoolTile(int i, Rectangle newRectangle, Point pos)
+        public CoolTile(int i, Rectangle newRectangle)
         {
             tile = content.Load<Texture2D>("Tile" + i);
             this.Rectangle = newRectangle;

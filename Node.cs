@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TowerDefenceEksamensProjekt
 {
-    class Node : IComparable<Node>
+    public class Node : IComparable<Node>
     {
         private int f;
 
@@ -29,7 +29,7 @@ namespace TowerDefenceEksamensProjekt
             set { h = value; }
         }
 
-        Point position;
+        Vector2 position;
 
         Node parent;
 
@@ -40,7 +40,7 @@ namespace TowerDefenceEksamensProjekt
             set { parent = value; }
         }
 
-        public Point Position
+        public Vector2 Position
         {
             get { return position; }
             set { position = value; }
@@ -52,7 +52,7 @@ namespace TowerDefenceEksamensProjekt
             set { g = value; }
         }
 
-        public Node(Point position)
+        public Node(Vector2 position)
         {
             this.position = position;
         }
@@ -61,7 +61,7 @@ namespace TowerDefenceEksamensProjekt
         {
             parent = ParentNode;
             g = ParentNode.G + cost;
-            h = ((Math.Abs(position.X - goalNode.position.X) + Math.Abs(goalNode.position.Y - position.Y)) * 10);
+            h = (int)((Math.Abs(position.X - goalNode.position.X) + Math.Abs(goalNode.position.Y - position.Y)) * 10);
             f = h + g;
         }
 

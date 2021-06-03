@@ -10,12 +10,31 @@ namespace TowerDefenceEksamensProjekt.Levels
 {
     public class GameLevel : Level
     {
-        public static Map currentmap;
+        public Map currentmap;
         public TowerMenu towerMenu;
         private bool ShowScoreBoard = false;
         public bool release = true;
         private int score;
-       
+        public static Vector2 BananaFarm;
+        public static Vector2 Base;
+
+        //private Color color;
+        //public Color MyColor
+        //{
+        //    get { return myColor; }
+        //    set { myColor = value; }
+        //}
+
+        AStar aStar;
+
+        private List<Node> finalPath;
+
+        public void FindPath()
+        {
+            finalPath = aStar.FindPath(BananaFarm, Base, CreateNodes());
+
+
+        }
 
         public GameLevel(Map currentmap)
         {
@@ -23,6 +42,20 @@ namespace TowerDefenceEksamensProjekt.Levels
             towerMenu = new TowerMenu();
         }
 
+        public List<Node> CreateNodes()
+        {
+            List<Node> allNodes = new List<Node>();
+
+            foreach (Tile tile in currentmap.Tiles)
+            {
+                if (tile.WalkAble)
+                {
+                    tile.MyNode = new Node(tile.position);
+                    allNodes.Add(tile.MyNode);
+                }
+            }
+            return allNodes;
+        }
         public override void Draw(SpriteBatch _spriteBatch)
         {
             currentmap.Draw(_spriteBatch);

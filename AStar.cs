@@ -31,10 +31,10 @@ namespace TowerDefenceEksamensProjekt
             open = new List<Node>();
         }
 
-        public List<Node> FindPath(Point myStart, Point myGoal, List<Node> nodes)
+        public List<Node> FindPath(Vector2 myStart, Vector2 myGoal, List<Node> nodes)
         {
-            Point start = myStart;
-            Point goal = myGoal;
+            Vector2 start = myStart;
+            Vector2 goal = myGoal;
 
             List<Node> finalPath = new List<Node>();
 
@@ -80,7 +80,7 @@ namespace TowerDefenceEksamensProjekt
                                     {
                                         if (currentNode.Position.X < neighbour.Position.X && currentNode.Position.Y > neighbour.Position.Y) //Topright
                                         {
-                                            if (nodes.Exists(node => node.Position == new Point(currentNode.Position.X, currentNode.Position.Y - 1) && nodes.Exists(node2 => node2.Position == new Point(currentNode.Position.X + 1, currentNode.Position.Y))))
+                                            if (nodes.Exists(node => node.Position == new Vector2(currentNode.Position.X, currentNode.Position.Y - 1) && nodes.Exists(node2 => node2.Position == new Vector2(currentNode.Position.X + 1, currentNode.Position.Y))))
                                             {
                                                 open.Add(neighbour);
                                                 open.Remove(currentNode);
@@ -90,7 +90,7 @@ namespace TowerDefenceEksamensProjekt
                                         }
                                         else if (currentNode.Position.X > neighbour.Position.X && currentNode.Position.Y < neighbour.Position.Y) //Bottomleft
                                         {
-                                            if (nodes.Exists(node => node.Position == new Point(currentNode.Position.X, currentNode.Position.Y + 1) && nodes.Exists(node2 => node2.Position == new Point(currentNode.Position.X - 1, currentNode.Position.Y))))
+                                            if (nodes.Exists(node => node.Position == new Vector2(currentNode.Position.X, currentNode.Position.Y + 1) && nodes.Exists(node2 => node2.Position == new Vector2(currentNode.Position.X - 1, currentNode.Position.Y))))
                                             {
                                                 open.Add(neighbour);
                                                 open.Remove(currentNode);
@@ -100,7 +100,7 @@ namespace TowerDefenceEksamensProjekt
                                         }
                                         else if (currentNode.Position.X > neighbour.Position.X && currentNode.Position.Y > neighbour.Position.Y) //Topleft
                                         {
-                                            if (nodes.Exists(node => node.Position == new Point(currentNode.Position.X, currentNode.Position.Y - 1) && nodes.Exists(node2 => node2.Position == new Point(currentNode.Position.X - 1, currentNode.Position.Y))))
+                                            if (nodes.Exists(node => node.Position == new Vector2(currentNode.Position.X, currentNode.Position.Y - 1) && nodes.Exists(node2 => node2.Position == new Vector2(currentNode.Position.X - 1, currentNode.Position.Y))))
                                             {
                                                 open.Add(neighbour);
                                                 open.Remove(currentNode);
@@ -110,7 +110,7 @@ namespace TowerDefenceEksamensProjekt
                                         }
                                         else if (currentNode.Position.X < neighbour.Position.X && currentNode.Position.Y < neighbour.Position.Y) //Bottomright
                                         {
-                                            if (nodes.Exists(node => node.Position == new Point(currentNode.Position.X + 1, currentNode.Position.Y) && nodes.Exists(node2 => node2.Position == new Point(currentNode.Position.X, currentNode.Position.Y + 1))))
+                                            if (nodes.Exists(node => node.Position == new Vector2(currentNode.Position.X + 1, currentNode.Position.Y) && nodes.Exists(node2 => node2.Position == new Vector2(currentNode.Position.X, currentNode.Position.Y + 1))))
                                             {
                                                 open.Add(neighbour);
                                                 open.Remove(currentNode);

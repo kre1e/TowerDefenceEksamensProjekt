@@ -43,41 +43,41 @@ namespace TowerDefenceEksamensProjekt
         //tager sig af Nodes
         //public static Point BananaFarm;
         //public static Point Base;
-        public static Point BananaFarm;
-        public static Point Base;
+        public static Vector2 BananaFarm;
+        public static Vector2 Base;
        
-        private Color color;
-        public Color MyColor
-        {
-            get { return myColor; }
-            set { myColor = value; }
-        }
+        //private Color color;
+        //public Color MyColor
+        //{
+        //    get { return myColor; }
+        //    set { myColor = value; }
+        //}
 
-        AStar aStar;
+        //AStar aStar;
 
-        private List<Node> finalPath;
+        //private List<Node> finalPath;
 
-        public void FindPath()
-        {
-            finalPath = aStar.FindPath(BananaFarm, Base, CreateNodes());
+        //public void FindPath()
+        //{
+        //    finalPath = aStar.FindPath(BananaFarm, Base, CreateNodes());
 
-            ColorNodes();
-        }
+            
+        //}
 
-        public List<Node> CreateNodes()
-        {
-            List<Node> allNodes = new List<Node>();
+        //public List<Node> CreateNodes()
+        //{
+        //    List<Node> allNodes = new List<Node>();
 
-            foreach (Tile tile in GameLevel.currentmap.Tiles)
-            {
-                if (tile.WalkAble)
-                {
-                    tile.MyNode = new Node(tile.MyPos);
-                    allNodes.Add(tile.MyNode);
-                }
-            }
-            return allNodes;
-        }
+        //    foreach (Tile tile in GameLevel.currentmap.Tiles)
+        //    {
+        //        if (tile.WalkAble)
+        //        {
+        //            tile.MyNode = new Node(tile.MyPos);
+        //            allNodes.Add(tile.MyNode);
+        //        }
+        //    }
+        //    return allNodes;
+        //}
         public static GameWorld Instance
         {
             get
@@ -175,21 +175,21 @@ namespace TowerDefenceEksamensProjekt
                 projectileDeletelist.Clear();
             }
             // TODO: Add your update logic here
-            foreach (Tile item in GameLevel.currentmap.Tiles)
-            {
-                if (aStar.Open.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
-                {
-                    item.MyColor = Color.CornflowerBlue;
-                }
-                if (aStar.Closed.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
-                {
-                    item.MyColor = Color.Orange;
-                }
-                if (finalPath.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
-                {
-                    item.MyColor = Color.GreenYellow;
-                }
-            }
+            //foreach (Tile item in GameLevel.currentmap.Tiles)
+            //{
+            //    if (aStar.Open.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
+            //    {
+            //        item.MyColor = Color.CornflowerBlue;
+            //    }
+            //    if (aStar.Closed.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
+            //    {
+            //        item.MyColor = Color.Orange;
+            //    }
+            //    if (finalPath.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
+            //    {
+            //        item.MyColor = Color.GreenYellow;
+            //    }
+            //}
 
             base.Update(gameTime);
         }
