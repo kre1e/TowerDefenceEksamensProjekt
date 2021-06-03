@@ -22,8 +22,11 @@ namespace TowerDefenceEksamensProjekt.Levels
             passLogin = new UserInput(new Rectangle(880, 500, 100, 30), this, "Password: ");
             gameObjects.Add(userLogin);
             gameObjects.Add(passLogin);
-
-            gameObjects.Add(new Button(new Rectangle(880, 550, 100, 30), "Login: ", Login));
+            userLogin.layerdef = 0.98f;
+            passLogin.layerdef = 0.98f;
+            Button button = new Button(new Rectangle(880, 550, 100, 30), "Login: ", Login);
+            button.layerdef = 0.90f;
+            gameObjects.Add(button);
         }
 
         public void Login()

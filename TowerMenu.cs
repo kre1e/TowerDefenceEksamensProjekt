@@ -28,6 +28,7 @@ namespace TowerDefenceEksamensProjekt
             for (int i = 0; i < TowerList.Count; i++)
             {
                 buttons.Add(new Button(new Rectangle((int)this.position.X, (int)this.position.Y + i * 35, 130, 35), TowerList[i].name, TowerList[i].SetBuilding));
+                buttons[i].layerdef = 0.2f;
             }
             rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, 100, 30 * buttons.Count);
         }

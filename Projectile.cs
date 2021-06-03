@@ -10,45 +10,46 @@ namespace TowerDefenceEksamensProjekt
     {
         private Enemy enemy;
         private int dmg;
-        private int speed = 3;
+        private int speed = 300;
+        public Projectile(Enemy enemy, int dmg, Vector2 towerPosition)
 
-        public Projectile(Enemy enemy, int dmg)
         {
             this.enemy = enemy;
             this.dmg = dmg;
             sprite = GameWorld.content.Load<Texture2D>("Tile1");
+            this.position = towerPosition;
         }
 
-        public bool Move()
+        public bool Move(GameTime gameTime)
         {
             Vector2 direction = position - enemy.position;
 
             if (direction != Vector2.Zero)
                 direction.Normalize();
+            position -= (direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
-            position -= (direction * speed);
-
-            if (Vector2.Distance(position, enemy.position) < 15)
+            if (Vector2.Distance(position, enemy.position) > 15)
             {
-                return true;
+                return false;
             }
             else
-                return false;
+                return true;
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            while (Move())
+            if (Move(gameTime))
             {
-                Move();
+                enemy.hp -= dmg;
+                GameWorld.DestroyProjectile(this);
             }
-            //if (!Move())
-            //    GameWorld.DestroyProjectile(this);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            _spriteBatch.Draw(sprite, position, null, Color.Red, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
+            Rectangle projectileRectagle = new Rectangle((int)position.X, (int)position.Y, 10, 10);
+            spriteBatch.Draw(sprite, projectileRectagle, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1f);
         }
     }
 }

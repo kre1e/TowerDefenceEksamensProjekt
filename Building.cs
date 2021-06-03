@@ -14,7 +14,11 @@ namespace TowerDefenceEksamensProjekt
         private int cost = 20;
         private int range = 200;
         private int dmg = 5;
-        private float attackspeed;
+
+        
+
+        private float attackspeed = 0.4f;
+
         private double cooldown = 0;
         public Vector2 origin;
         public float rotatetion;
@@ -22,13 +26,15 @@ namespace TowerDefenceEksamensProjekt
         public int PlayerCurrency;
 
         public List<Enemy> enemyList;
+
         public List<Projectile> projectilelist;
+
 
         public Building(string name)
         {
             this.name = name;
             sprite = content.Load<Texture2D>(name);
-            projectilelist = new List<Projectile>();
+
         }
 
         public void SetBuilding()
@@ -36,7 +42,9 @@ namespace TowerDefenceEksamensProjekt
             (GameWorld.currrentLevel as GameLevel).towerMenu.n.ContainTower = (Building)this.MemberwiseClone();
         }
 
-        public void Attack(GameTime gametime, List<Enemy> enemyList, List<Projectile> projectilelist)
+
+        public void Attack(GameTime gametime, List<Enemy> enemyList)
+
         {
             if (enemyList != null)
             {
@@ -44,13 +52,18 @@ namespace TowerDefenceEksamensProjekt
                 {
                     if ((int)Math.Sqrt(Math.Pow(this.position.X - enemy.position.X, 2) + Math.Pow(this.position.Y - enemy.position.Y, 2)) <= range)
                     {
-                        if ((gametime.ElapsedGameTime.TotalSeconds - cooldown) > attackspeed)
+
+                        Vector2 currentposition = position + new Vector2(sprite.Width / 4, sprite.Height / 4);
+                        var distance = enemy.position - currentposition;
+                        rotatetion = (float)Math.Atan2(distance.Y, distance.X) + (float)Math.PI / 2;
+                        if ((gametime.TotalGameTime.TotalSeconds - cooldown) > attackspeed)
                         {
-                            projectilelist.Add(new Projectile(enemy, dmg));
-                            cooldown = gametime.ElapsedGameTime.TotalSeconds;
+                            GameWorld.projectilelist.Add(new Projectile(enemy, dmg, currentposition + Vector2.Transform(new Vector2(0, -34), Matrix.CreateRotationZ(rotatetion))));
+
+                            cooldown = gametime.TotalGameTime.TotalSeconds;
                         }
-                        var distance = enemy.position - this.position;
-                        rotatetion = (float)Math.Atan2(distance.Y, distance.X) + 90;
+                        break;
+
                     }
                 }
             }
@@ -58,16 +71,20 @@ namespace TowerDefenceEksamensProjekt
 
         public void BananaFarm(GameTime gametime)
         {
-            if ((gametime.ElapsedGameTime.TotalSeconds - cooldown) > attackspeed)
+
+            if ((gametime.TotalGameTime.TotalSeconds - cooldown) > attackspeed)
             {
                 PlayerCurrency++;
-                cooldown = gametime.ElapsedGameTime.TotalSeconds;
+                cooldown = gametime.TotalGameTime.TotalSeconds;
+
             }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position + new Vector2(sprite.Width / 4, sprite.Height / 4), null, Color.White, rotatetion, new Vector2(sprite.Width / 2, sprite.Height / 2), 0.5f, SpriteEffects.None, 1);
+
+            spriteBatch.Draw(sprite, position + new Vector2(sprite.Width / 4, sprite.Height / 4), null, Color.White, rotatetion, new Vector2(sprite.Width / 2, sprite.Height / 2), 0.5f, SpriteEffects.None, 0.1f);
+
         }
 
         public override void Update(GameTime gameTime)
@@ -79,11 +96,13 @@ namespace TowerDefenceEksamensProjekt
                     return;
 
                 case "Tower":
-                    Attack(gameTime, GameWorld.enemyList, projectilelist);
+
+                    Attack(gameTime, GameWorld.enemyList);
                     return;
 
-                case "IceTower":
-                    Attack(gameTime, enemyList, projectilelist);
+                case "FlameTower":
+                    Attack(gameTime, GameWorld.enemyList);
+
                     return;
 
                 case "Wall":

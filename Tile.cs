@@ -8,12 +8,10 @@ using System.Text;
 namespace TowerDefenceEksamensProjekt
 {
     enum TileType { Base, Tower, FlameTower, Wall, BananaFarm, Empty}
+
     public class Tile : GameObject
     {
         public Texture2D tile;
-
-        
-
         private bool walkAble;
         TileType mytype = TileType.Empty;
 
@@ -35,21 +33,6 @@ namespace TowerDefenceEksamensProjekt
             set { myNode = value; }
         }
 
-        //private Color myColor;
-        //public Color MyColor
-        //{
-        //    get { return myColor; }
-        //    set { myColor = value; }
-        //}
-
-        
-
-        //public Tile(Vector2 pos)
-        //{
-        //    this.myPos = pos;
-        //    walkAble = true;
-        //}
-
         public GameObject ContainTower
         {
             get
@@ -66,7 +49,7 @@ namespace TowerDefenceEksamensProjekt
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tile, Rectangle, color);
+            spriteBatch.Draw(tile, Rectangle, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
             if (ContainTower != null)
                 ContainTower.Draw(spriteBatch);
         }
@@ -77,7 +60,6 @@ namespace TowerDefenceEksamensProjekt
                 ContainTower.Update(gameTime);
         }
     }
-
 
     public class CoolTile : Tile
     {

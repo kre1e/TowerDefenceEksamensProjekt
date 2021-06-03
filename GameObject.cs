@@ -10,21 +10,20 @@ namespace TowerDefenceEksamensProjekt
 {
     public class GameObject
     {
+        public float layerdef;
         protected Texture2D sprite;
         protected Vector2 velocity;
         public Vector2 position;
         protected Color color = Color.White;
         protected SpriteBatch _spriteBatch;
         public static ContentManager content;
-
         protected int offsetX;
         protected int offsetY;
         protected int sizeX;
         protected int sizeY;
-
         protected Vector2 scale;
         protected float rotation;
-
+        
         public virtual Rectangle Collision
         {
             get
@@ -45,7 +44,7 @@ namespace TowerDefenceEksamensProjekt
 
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(sprite, position, null, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
+            _spriteBatch.Draw(sprite, position, null, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, layerdef);
         }
 
         public virtual void Update(GameTime gameTime)

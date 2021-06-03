@@ -7,10 +7,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using TowerDefenceEksamensProjekt.FactoryPattern;
 using TowerDefenceEksamensProjekt.Levels;
-using System.Threading.Tasks;
-//using System.Drawing;
-using System.Linq;
-using System.Text;
+
 
 namespace TowerDefenceEksamensProjekt
 {
@@ -30,54 +27,19 @@ namespace TowerDefenceEksamensProjekt
         public static List<Projectile> projectilelist = new List<Projectile>();
         public static List<Projectile> projectileDeletelist = new List<Projectile>();
         public static List<Enemy> enemyList = new List<Enemy>();
+        public List<Enemy> enemyToAdd = new List<Enemy>();
         public static List<Enemy> enemyDeleteList = new List<Enemy>();
         public static List<Building> buildingList = new List<Building>();
         public static ContentManager content;
-
         public static Level currrentLevel;
         public static string currentPlayer;
-
         private static GameWorld instance;
         private EnemyPacks enemyPacks = new EnemyPacks();
-
-        //tager sig af Nodes
-        //public static Point BananaFarm;
-        //public static Point Base;
         public static Vector2 BananaFarm;
         public static Vector2 Base;
-       
-        //private Color color;
-        //public Color MyColor
-        //{
-        //    get { return myColor; }
-        //    set { myColor = value; }
-        //}
+        public static double gameTime1;
 
-        //AStar aStar;
 
-        //private List<Node> finalPath;
-
-        //public void FindPath()
-        //{
-        //    finalPath = aStar.FindPath(BananaFarm, Base, CreateNodes());
-
-            
-        //}
-
-        //public List<Node> CreateNodes()
-        //{
-        //    List<Node> allNodes = new List<Node>();
-
-        //    foreach (Tile tile in GameLevel.currentmap.Tiles)
-        //    {
-        //        if (tile.WalkAble)
-        //        {
-        //            tile.MyNode = new Node(tile.MyPos);
-        //            allNodes.Add(tile.MyNode);
-        //        }
-        //    }
-        //    return allNodes;
-        //}
         public static GameWorld Instance
         {
             get
@@ -123,7 +85,6 @@ namespace TowerDefenceEksamensProjekt
             currrentLevel = new LoginLevel();
             highscorearray = Database.Loadhighscore();
             enemyarray = Database.LoadEnemyDB();
-            enemyPacks.EnemyPackBuilder("Org", 5, new Vector2(540, 540));
         }
 
         protected override void Update(GameTime gameTime)
@@ -134,6 +95,9 @@ namespace TowerDefenceEksamensProjekt
 
             if (currentKeyState.IsKeyDown(Keys.Escape))
                 Exit();
+
+
+            gameTime1 = gameTime.TotalGameTime.TotalSeconds;
 
             previousKeyState = currentKeyState;
 
@@ -147,11 +111,6 @@ namespace TowerDefenceEksamensProjekt
                 }
             }
 
-            foreach (var item in enemyList)
-            {
-                item.Update(gameTime);
-            }
-
             foreach (var item in projectilelist)
             {
                 item.Update(gameTime);
@@ -159,10 +118,7 @@ namespace TowerDefenceEksamensProjekt
 
             if (enemyDeleteList.Count > 0)
             {
-                foreach (var item in enemyDeleteList)
-                {
-                    enemyList.Remove(item);
-                }
+                enemyList.RemoveAll(x => enemyDeleteList.Contains(x));
                 enemyDeleteList.Clear();
             }
 
@@ -223,20 +179,16 @@ namespace TowerDefenceEksamensProjekt
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack);
             currrentLevel.Draw(_spriteBatch);
+            enemyList.AddRange(enemyToAdd);
+            enemyToAdd.Clear();
             foreach (var go in enemyList)
             {
-#if DEBUG
-                DrawCollisionBox(go);
-#endif
                 go.Draw(_spriteBatch);
             }
             foreach (var go in projectilelist)
             {
-#if DEBUG
-                DrawCollisionBox(go);
-#endif
                 go.Draw(_spriteBatch);
             }
 

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TowerDefenceEksamensProjekt.FactoryPattern;
 
 namespace TowerDefenceEksamensProjekt.Levels
@@ -17,14 +18,7 @@ namespace TowerDefenceEksamensProjekt.Levels
         private int score;
         public static Vector2 BananaFarm;
         public static Vector2 Base;
-
-        //private Color color;
-        //public Color MyColor
-        //{
-        //    get { return myColor; }
-        //    set { myColor = value; }
-        //}
-
+        
         AStar aStar;
 
         private List<Node> finalPath;
@@ -36,10 +30,12 @@ namespace TowerDefenceEksamensProjekt.Levels
 
         }
 
+
         public GameLevel(Map currentmap)
         {
             this.currentmap = currentmap;
             towerMenu = new TowerMenu();
+
         }
 
         public List<Node> CreateNodes()
@@ -56,11 +52,12 @@ namespace TowerDefenceEksamensProjekt.Levels
             }
             return allNodes;
         }
+ 
         public override void Draw(SpriteBatch _spriteBatch)
         {
             currentmap.Draw(_spriteBatch);
-            _spriteBatch.DrawString(GameWorld.userfont, "Username: " + GameWorld.currentPlayer, new Vector2(100, 1), Color.Black);
-            _spriteBatch.DrawString(GameWorld.userfont, "Score:  " + score, new Vector2(1, 1), Color.Black);
+            _spriteBatch.DrawString(GameWorld.userfont, "Username: " + GameWorld.currentPlayer, new Vector2(100, 1), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
+            _spriteBatch.DrawString(GameWorld.userfont, "Score:  " + score, new Vector2(1, 1), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
             towerMenu.Draw(_spriteBatch);
 
             if (ShowScoreBoard == true)
@@ -76,6 +73,7 @@ namespace TowerDefenceEksamensProjekt.Levels
         }
 
         public override void Update(GameTime gameTime)
+
         {   
             
             KeyboardState currentKeyState = GameWorld.currentKeyState;
@@ -85,6 +83,7 @@ namespace TowerDefenceEksamensProjekt.Levels
                 ShowScoreBoard = true;
                 FindPath();
             }
+
             else
                 ShowScoreBoard = false;
 
@@ -110,7 +109,12 @@ namespace TowerDefenceEksamensProjekt.Levels
                     release = true;
                 }
             }
-            
+
+            foreach (var item in GameWorld.enemyDeleteList)
+            {
+                score += 1;
+            } 
+
             towerMenu.Update(gameTime);
             currentmap.Update(gameTime);
         }
