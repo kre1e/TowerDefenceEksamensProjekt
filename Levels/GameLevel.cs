@@ -74,6 +74,11 @@ namespace TowerDefenceEksamensProjekt.Levels
                     release = true;
                 }
             }
+
+            foreach (var item in GameWorld.enemyDeleteList)
+            {
+                score += 1;
+            } 
             towerMenu.Update(gameTime);
             currentmap.Update(gameTime);
         }

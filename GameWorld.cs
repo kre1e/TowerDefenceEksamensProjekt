@@ -135,6 +135,7 @@ namespace TowerDefenceEksamensProjekt
         public static void DestroyEnemy(Enemy item)
         {
             enemyDeleteList.Add(item);
+            
         }
 
         public static void DestroyProjectile(Projectile item)
