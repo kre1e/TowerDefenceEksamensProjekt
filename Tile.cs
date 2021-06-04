@@ -19,6 +19,14 @@ namespace TowerDefenceEksamensProjekt
         public static ContentManager content;
         private GameObject containTower;
 
+        private Color myColor;
+
+        public Color MyColor
+        {
+            get { return myColor; }
+            set { myColor = value; }
+        }
+
         public bool WalkAble
         {
             get { return walkAble; }

@@ -40,6 +40,7 @@ namespace TowerDefenceEksamensProjekt
         public static double gameTime1;
 
 
+
         public static GameWorld Instance
         {
             get
@@ -142,8 +143,8 @@ namespace TowerDefenceEksamensProjekt
             //        item.MyColor = Color.Orange;
             //    }
             //    if (finalPath.Exists(x => x.Position == item.MyPos) && item.MyPos != BananaFarm && item.MyPos != Base)
-            //    {
-            //        item.MyColor = Color.GreenYellow;
+            //   {
+            //       item.MyColor = Color.GreenYellow;
             //    }
             //}
 

@@ -26,8 +26,6 @@ namespace TowerDefenceEksamensProjekt.Levels
         public void FindPath()
         {
             finalPath = aStar.FindPath(BananaFarm, Base, CreateNodes());
-
-
         }
 
 
@@ -35,6 +33,8 @@ namespace TowerDefenceEksamensProjekt.Levels
         {
             this.currentmap = currentmap;
             towerMenu = new TowerMenu();
+            
+
 
         }
 
@@ -55,6 +55,7 @@ namespace TowerDefenceEksamensProjekt.Levels
  
         public override void Draw(SpriteBatch _spriteBatch)
         {
+            aStar = new AStar();
             currentmap.Draw(_spriteBatch);
             _spriteBatch.DrawString(GameWorld.userfont, "Username: " + GameWorld.currentPlayer, new Vector2(100, 1), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
             _spriteBatch.DrawString(GameWorld.userfont, "Score:  " + score, new Vector2(1, 1), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
@@ -80,10 +81,11 @@ namespace TowerDefenceEksamensProjekt.Levels
             MouseState mouseState = Mouse.GetState();
             if (currentKeyState.IsKeyDown(Keys.Tab))
             {
+                Task.Run(() => { EnemyPacks.Instance.EnemyPackBuilder("Org", 2, BananaFarm); });
                 ShowScoreBoard = true;
                 FindPath();
             }
-
+         
             else
                 ShowScoreBoard = false;
 
@@ -113,7 +115,23 @@ namespace TowerDefenceEksamensProjekt.Levels
             foreach (var item in GameWorld.enemyDeleteList)
             {
                 score += 1;
-            } 
+            }
+            
+            foreach (Tile item in currentmap.Tiles)
+            {
+                if (aStar.Open.Exists(x => x.Position == item.position) && item.position != BananaFarm && item.position != Base)
+                {
+                    item.MyColor = Color.CornflowerBlue;
+                }
+                if (aStar.Closed.Exists(x => x.Position == item.position) && item.position != BananaFarm && item.position != Base)
+                {
+                    item.MyColor = Color.Orange;
+                }
+                //if (finalPath.Exists(x => x.Position == item.position) && item.position != BananaFarm && item.position != Base)
+                //{
+                //    item.MyColor = Color.GreenYellow;
+                //}
+            }
 
             towerMenu.Update(gameTime);
             currentmap.Update(gameTime);

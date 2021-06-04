@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TowerDefenceEksamensProjekt
 {
-    class AStar
+    public class AStar
     {
         private List<Node> closed;
         private List<Node> open;

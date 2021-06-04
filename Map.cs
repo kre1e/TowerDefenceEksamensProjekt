@@ -16,6 +16,7 @@ namespace TowerDefenceEksamensProjekt
         {
         }
 
+        
         public void Gen(int[,] map, int size)
         {
             Tiles = new CoolTile[map.GetLength(0), map.GetLength(1)];
@@ -30,6 +31,7 @@ namespace TowerDefenceEksamensProjekt
 
                     width = (i + 1) * size;
                     height = (j + 1) * size;
+                    
                 }
             }
         }
