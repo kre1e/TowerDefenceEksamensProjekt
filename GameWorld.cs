@@ -90,6 +90,11 @@ namespace TowerDefenceEksamensProjekt
 
             currrentLevel.Update(gameTime);
 
+            if (GameLevel.health == 0)
+            {
+                currrentLevel = new LoginLevel();
+            }
+
             if (currentKeyState.IsKeyDown(Keys.Escape))
                 Exit();
 
