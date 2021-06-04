@@ -12,19 +12,10 @@ namespace TowerDefenceEksamensProjekt
     {
         public float layerdef;
         protected Texture2D sprite;
-        protected Vector2 velocity;
         public Vector2 position;
         protected Color color = Color.White;
         protected SpriteBatch _spriteBatch;
         public static ContentManager content;
-
-        protected int offsetX;
-        protected int offsetY;
-        protected int sizeX;
-        protected int sizeY;
-
-        protected Vector2 scale;
-        protected float rotation;
 
         public void SetSprite(string spriteName)
         {
