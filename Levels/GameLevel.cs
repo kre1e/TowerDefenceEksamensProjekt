@@ -15,7 +15,8 @@ namespace TowerDefenceEksamensProjekt.Levels
         public TowerMenu towerMenu;
         private bool ShowScoreBoard = false;
         public bool release = true;
-        private int score;
+        public static int score;
+        public static int health;
 
         public GameLevel(Map currentmap)
         {
@@ -29,6 +30,7 @@ namespace TowerDefenceEksamensProjekt.Levels
             currentmap.Draw(_spriteBatch);
             _spriteBatch.DrawString(GameWorld.userfont, "Username: " + GameWorld.currentPlayer, new Vector2(100, 1), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
             _spriteBatch.DrawString(GameWorld.userfont, "Score:  " + score, new Vector2(1, 1), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
+            _spriteBatch.DrawString(GameWorld.userfont, "Health:  " + health, new Vector2(1, 30), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
             towerMenu.Draw(_spriteBatch);
 
             if (ShowScoreBoard == true)
@@ -78,7 +80,8 @@ namespace TowerDefenceEksamensProjekt.Levels
             foreach (var item in GameWorld.enemyDeleteList)
             {
                 score += 1;
-            } 
+            }
+
             towerMenu.Update(gameTime);
             currentmap.Update(gameTime);
         }

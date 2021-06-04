@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TowerDefenceEksamensProjekt.Levels;
 
 namespace TowerDefenceEksamensProjekt
 {
@@ -42,6 +43,8 @@ namespace TowerDefenceEksamensProjekt
             else
             {
                 GameWorld.DestroyEnemy(this);
+                GameLevel.score += -1;
+                GameLevel.health += -10;
                 return false;
             }
         }
@@ -68,5 +71,12 @@ namespace TowerDefenceEksamensProjekt
             }
             return;
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
+
     }
 }

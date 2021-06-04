@@ -26,19 +26,6 @@ namespace TowerDefenceEksamensProjekt
         protected Vector2 scale;
         protected float rotation;
 
-        public virtual Rectangle Collision
-        {
-            get
-            {
-                return new Rectangle(
-                       (int)position.X + offsetX,
-                       (int)position.Y + offsetY,
-                       (int)sprite.Width + sizeX,
-                       (int)sprite.Height + sizeY
-                   );
-            }
-        }
-
         public void SetSprite(string spriteName)
         {
             sprite = content.Load<Texture2D>(spriteName);
@@ -51,18 +38,6 @@ namespace TowerDefenceEksamensProjekt
 
         public virtual void Update(GameTime gameTime)
         {
-        }
-
-        public virtual void OnCollision(GameObject other)
-        {
-        }
-
-        public void CheckCollision(GameObject other)
-        {
-            if (Collision.Intersects(other.Collision) && this != other)
-            {
-                OnCollision(other);
-            }
         }
     }
 }

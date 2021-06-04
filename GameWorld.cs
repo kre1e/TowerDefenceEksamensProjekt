@@ -16,8 +16,6 @@ namespace TowerDefenceEksamensProjekt
         private SpriteBatch _spriteBatch;
         public static SpriteFont userfont;
 
-        private Texture2D collisionTexture;
-
         public static KeyboardState currentKeyState;
         public static KeyboardState previousKeyState;
         public static HighScore[] highscorearray;
@@ -66,6 +64,7 @@ namespace TowerDefenceEksamensProjekt
             // TODO: Add your initialization logic here
             Database.DatabaseSetup();
             content = Content;
+            GameLevel.health = 100;
 
             base.Initialize();
         }
@@ -75,7 +74,6 @@ namespace TowerDefenceEksamensProjekt
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             userfont = Content.Load<SpriteFont>("File");
-            collisionTexture = Content.Load<Texture2D>("Pixel");
             Tile.content = Content;
             Button.content = Content;
             Building.content = Content;
@@ -101,11 +99,6 @@ namespace TowerDefenceEksamensProjekt
             foreach (Building gameob in buildingList)
             {
                 gameob.Update(gameTime);
-
-                foreach (Enemy enemy in enemyList)
-                {
-                    gameob.CheckCollision(enemy);
-                }
             }
 
             foreach (var item in projectilelist)
@@ -135,26 +128,11 @@ namespace TowerDefenceEksamensProjekt
         public static void DestroyEnemy(Enemy item)
         {
             enemyDeleteList.Add(item);
-            
         }
 
         public static void DestroyProjectile(Projectile item)
         {
             projectileDeletelist.Add(item);
-        }
-
-        public void DrawCollisionBox(GameObject go)
-        {
-            //Der laves en streg med tykkelsen 1 for hver side af Collision.
-            Rectangle topLine = new Rectangle(go.Collision.X, go.Collision.Y, go.Collision.Width, 1);
-            Rectangle bottomLine = new Rectangle(go.Collision.X, go.Collision.Y + go.Collision.Height, go.Collision.Width, 1);
-            Rectangle rightLine = new Rectangle(go.Collision.X + go.Collision.Width, go.Collision.Y, 1, go.Collision.Height);
-            Rectangle leftLine = new Rectangle(go.Collision.X, go.Collision.Y, 1, go.Collision.Height);
-            //Der tegnes en streg med tykkelsen 1 for hver side af Collision med collsionTexture med farven rød.
-            _spriteBatch.Draw(collisionTexture, topLine, Color.Red);
-            _spriteBatch.Draw(collisionTexture, bottomLine, Color.Red);
-            _spriteBatch.Draw(collisionTexture, rightLine, Color.Red);
-            _spriteBatch.Draw(collisionTexture, leftLine, Color.Red);
         }
 
         protected override void Draw(GameTime gameTime)
