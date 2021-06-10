@@ -130,11 +130,13 @@ namespace TowerDefenceEksamensProjekt
             base.Update(gameTime);
         }
 
+        //Adds enemy to a list of deletet enemys
         public static void DestroyEnemy(Enemy item)
         {
             enemyDeleteList.Add(item);
         }
 
+        //Adds projectile to a list of deletet projectile
         public static void DestroyProjectile(Projectile item)
         {
             projectileDeletelist.Add(item);

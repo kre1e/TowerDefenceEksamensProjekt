@@ -34,6 +34,8 @@ namespace TowerDefenceEksamensProjekt
             (GameWorld.currrentLevel as GameLevel).towerMenu.n.ContainTower = (Building)this.MemberwiseClone();
         }
 
+        //Attack funktioen rotere tower ud fra dens position og enemiens positon ved at lave en tangens.
+        //Der bliver tilfojet et projectil hver gang cooldown er store end attackspeed.
         public void Attack(GameTime gametime, List<Enemy> enemyList)
         {
             if (enemyList != null)
@@ -57,6 +59,7 @@ namespace TowerDefenceEksamensProjekt
             }
         }
 
+        //Tilfojer currency
         public void BananaFarm(GameTime gametime)
         {
             if ((gametime.TotalGameTime.TotalSeconds - cooldown) > attackspeed)
@@ -71,6 +74,7 @@ namespace TowerDefenceEksamensProjekt
             spriteBatch.Draw(sprite, position + new Vector2(sprite.Width / 4, sprite.Height / 4), null, Color.White, rotatetion, new Vector2(sprite.Width / 2, sprite.Height / 2), 0.5f, SpriteEffects.None, 0.1f);
         }
 
+        //Satter variabler for hver tower.
         public override void Update(GameTime gameTime)
         {
             switch (name)

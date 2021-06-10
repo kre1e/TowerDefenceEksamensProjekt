@@ -12,7 +12,6 @@ namespace TowerDefenceEksamensProjekt
     public class UserInput : GameObject
     {
         public Texture2D loginTexture;
-        public static ContentManager content;
         public Rectangle Rectangle;
         private LoginLevel parrentUserLogin;
         public string currentInput;
@@ -36,6 +35,7 @@ namespace TowerDefenceEksamensProjekt
             spriteBatch.DrawString(userfont, informationText + currentInput, new Vector2(Rectangle.X - 80, Rectangle.Y + 10), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, layerdef + 0.01f);
         }
 
+        //En funktion der returnere true hvis man trykker og slipper en knap.
         private bool KeypressTest(Keys theKey)
         {
             if (GameWorld.currentKeyState.IsKeyUp(theKey) && GameWorld.previousKeyState.IsKeyDown(theKey))
@@ -44,6 +44,8 @@ namespace TowerDefenceEksamensProjekt
             return false;
         }
 
+        //Et update loop som tjekker om man skriver i userInput rectangle, hvis man er i rectanglen og man skriver bliver der tilfojet keyvalues til en streng.
+        //Der er blandt andet ogsa lavet en delete sa man kan fjerne en del af strengen fra currentInput.
         public override void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();

@@ -20,6 +20,7 @@ namespace TowerDefenceEksamensProjekt
             this.position = towerPosition;
         }
 
+        //En move funktion som bevager sig til enemy position.
         public bool Move(GameTime gameTime)
         {
             Vector2 direction = position - enemy.position;

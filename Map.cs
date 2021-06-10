@@ -16,6 +16,7 @@ namespace TowerDefenceEksamensProjekt
         {
         }
 
+        //En funktion som tager et 2d array og laver en tile for hver vardi i arrayet.
         public void Gen(int[,] map, int size)
         {
             Tiles = new CoolTile[map.GetLength(0), map.GetLength(1)];
