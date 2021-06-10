@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TowerDefenceEksamensProjekt
 {
-    //En klasse som indeholder maps, og en random map generatorr.
+    //En klasse som indeholder maps, og en random map generator.
     public static class Realm
     {
         public static Map RandomMap(Map map)

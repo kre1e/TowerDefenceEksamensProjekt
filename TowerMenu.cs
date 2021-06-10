@@ -16,7 +16,7 @@ namespace TowerDefenceEksamensProjekt
         public List<Building> TowerList = new List<Building>();
         public Rectangle rectangle;
 
-        //En contrukter som tilfojer de bygninger vi vil have i tower menuen.
+        //En contrukter som tilføjer de bygninger vi vil have i tower menuen.
         public TowerMenu()
         {
             TowerList.Add(new Building("Base"));
@@ -25,7 +25,7 @@ namespace TowerDefenceEksamensProjekt
             TowerList.Add(new Building("Wall"));
             TowerList.Add(new Building("BananaFarm"));
 
-            //Her til fojes der en knap for hvor building der er i TowerList, heraf vidre gives der ogsa funktionen SetBuilding til hver tower i listen.
+            //Her til føjes der en knap for hvor building der er i TowerList, heraf vidre gives der ogsa funktionen SetBuilding til hver tower i listen.
             buttons = new List<Button>();
             for (int i = 0; i < TowerList.Count; i++)
             {
@@ -62,7 +62,7 @@ namespace TowerDefenceEksamensProjekt
             rectangle.Y = (int)this.position.Y;
         }
 
-        //Hvis menuen er aben kores update loopet i listen af buttons.
+        //Hvis menuen er åben køres update loopet i listen af buttons.
         public override void Update(GameTime gameTime)
         {
             if (show)

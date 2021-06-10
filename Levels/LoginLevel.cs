@@ -31,7 +31,7 @@ namespace TowerDefenceEksamensProjekt.Levels
             gameObjects.Add(button);
         }
 
-        //Hvis det der star i currentInput stemmer overens med det der er i databasen laves der et randow map.
+        //Hvis det der står i currentInput stemmer overens med det der er i databasen laves der et randow map.
         public void Login()
         {
             if (Database.Userlogin(userLogin.currentInput, passLogin.currentInput))
@@ -42,7 +42,7 @@ namespace TowerDefenceEksamensProjekt.Levels
             }
         }
 
-        //Den satter activeUserInput til null som gor at der ikke bliver skrevet i user og pass input.
+        //Den sætter activeUserInput til null som gør at der ikke bliver skrevet i user og pass input.
         public override void Update(GameTime gameTime)
         {
             MouseState mouse = Mouse.GetState();

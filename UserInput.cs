@@ -44,7 +44,7 @@ namespace TowerDefenceEksamensProjekt
             return false;
         }
 
-        //Et update loop som tjekker om man skriver i userInput rectangle, hvis man er i rectanglen og man skriver bliver der tilfojet keyvalues til en streng.
+        //Et update loop som tjekker om man skriver i userInput rectangle, hvis man er i rectanglen og man skriver bliver der tilføjet keyvalues til en streng.
         //Der er blandt andet ogsa lavet en delete sa man kan fjerne en del af strengen fra currentInput.
         public override void Update(GameTime gameTime)
         {

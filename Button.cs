@@ -32,7 +32,7 @@ namespace TowerDefenceEksamensProjekt
             spriteBatch.DrawString(userfont, name, new Vector2(Rectangle.X + 20, Rectangle.Y), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, layerdef + 0.01f);
         }
 
-        //Hvis musens positon er inde i rectanglen og man trykker kores der action.
+        //Hvis musens positon er inde i rectanglen og man trykker køres der action.
         public override void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();

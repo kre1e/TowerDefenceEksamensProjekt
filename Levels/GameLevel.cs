@@ -18,7 +18,7 @@ namespace TowerDefenceEksamensProjekt.Levels
         public static int score;
         public static int health;
 
-        //Kore funktionen EnemyPackBuilder som en task.
+        //Køre funktionen EnemyPackBuilder som en task.
         public GameLevel(Map currentmap)
         {
             this.currentmap = currentmap;
@@ -56,7 +56,7 @@ namespace TowerDefenceEksamensProjekt.Levels
                 ShowScoreBoard = true;
             else
                 ShowScoreBoard = false;
-            //For hver tile i currentmap bliver towermenuen abnet hvis man tykker pa en tile.
+            //For hver tile i currentmap bliver towermenuen abnet hvis man tykker på en tile.
             foreach (Tile n in currentmap.Tiles)
             {
                 if (n.Rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && release)

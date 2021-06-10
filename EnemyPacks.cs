@@ -24,11 +24,11 @@ namespace TowerDefenceEksamensProjekt
             }
         }
 
-        //EnemyPackBuild bliver brugt til at lave en pack af enemys, dette gor den ved at adde en enemy ved at bruge EnemyFactory create funtion og heraf navnet pa funktionen
-        //Der efter satter jeg positionen.
+        //EnemyPackBuild bliver brugt til at lave en pack af enemys, dette gør den ved at adde en enemy ved at bruge EnemyFactory create funtion og heraf navnet pa funktionen
+        //Der efter sætter jeg positionen.
         //Og Adder den til en list af task.
-        //Efter satter jeg et delay ind for at enemysne ikke skal ga oven pa hindannen.
-        //Efter ventes der pa at alle task er fardige, hvor den sa forsatter med at kore det rekursive loop.
+        //Efter sætter jeg et delay ind for at enemysne ikke skal gå oven pa hindannen.
+        //Efter ventes der pa at alle task er færdige, hvor den så forsatter med at køre det rekursive loop.
         public async void EnemyPackBuilder(string EnemyPackName, int PackSize, Vector2 EnemySpawnLocation)
         {
             List<Task> listOfTask = new List<Task>();

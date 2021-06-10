@@ -14,7 +14,7 @@ namespace TowerDefenceEksamensProjekt
         public Rectangle Rectangle;
         private GameObject containTower;
 
-        //Et gameobject hvor buildings bliver sat pa nar de bliver bygget.
+        //Et gameobject hvor buildings bliver sat på når de bliver bygget.
         public GameObject ContainTower
         {
             get
@@ -43,7 +43,7 @@ namespace TowerDefenceEksamensProjekt
         }
     }
 
-    //En tile som man kan andre spriten og storelsen pa den rectangle.
+    //En tile som man kan andre spriten og størelsen pa den rectangle.
     public class CoolTile : Tile
     {
         public CoolTile(int i, Rectangle newRectangle)

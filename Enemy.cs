@@ -27,7 +27,7 @@ namespace TowerDefenceEksamensProjekt
             pointsToMoves = new List<Vector2> { new Vector2(100, 100), new Vector2(1000, 100), new Vector2(1000, 1000), new Vector2(100, 1000) };
         }
 
-        //Move funktion som bevager sig efter en list af vectore.
+        //Move funktion som bevæger sig efter en list af vectore.
         public bool Move(double gameTime)
         {
             if (pointsToMoves.Count > 1)
@@ -55,7 +55,7 @@ namespace TowerDefenceEksamensProjekt
             base.Draw(spriteBatch);
         }
 
-        //En task funktion som bruger sin egen tid, at kore Move funktionen, og fjerner enemyen med DestoyEnemy funktionen.
+        //En task funktion som bruger sin egen tid, at køre Move funktionen, og fjerner enemyen med DestoyEnemy funktionen.
         public async Task Working()
         {
             double deltaTime = 0;
